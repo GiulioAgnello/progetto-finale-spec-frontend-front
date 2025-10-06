@@ -1,0 +1,21 @@
+.animateLogo {
+  font-size: 2rem;
+  background: linear-gradient(
+    90deg,
+    #8e113b,
+    #fa4242,
+    #fc7566,
+    #ff89db,
+    #56a5ea,
+    #8e113b
+  );
+  background-size: cover;
+  background-clip: text;
+  color: transparent;
+  animation: animate 3s linear infinite;
+}
+@keyframes animate {
+  to {
+    background-position-x: 200px;
+  }
+}
