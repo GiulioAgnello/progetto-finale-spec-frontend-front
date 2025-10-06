@@ -1,14 +1,17 @@
-import { useState } from "react";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
-import Main from "./components/Main";
+import { BrowserRouter, Outlet, Routes, Route } from "react-router";
+import DefaultLayout from "./layout/DefaultLayout";
+import Homepage from "./pages/Homepage";
+import DetailTravel from "./pages/DetailTravel";
 
 export default function App() {
   return (
-    <>
-      <Header />
-      <Main />
-      <Footer />
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route element={<DefaultLayout />}>
+          <Route path="/" element={<Homepage />} />
+          <Route path="/:id" element={<DetailTravel />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
