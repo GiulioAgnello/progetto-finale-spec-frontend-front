@@ -5,9 +5,15 @@ const TravelContext = createContext();
 const TravelProvider = ({ children }) => {
   const [destinations, setDestinations] = useState([]);
 
-  const getDestinations = async () => {
+  const getDestinations = async (query) => {
     try {
-      const response = await fetch("http://localhost:3001/cities");
+      const url = query
+        ? `http://localhost:3001/cities?${query
+            .replace("q=", "search=")
+            .replace("type=", "category=")}`
+        : "http://localhost:3001/cities";
+      console.log("Fetching:", url);
+      const response = await fetch(url);
       const data = await response.json();
       setDestinations(data);
     } catch (error) {
