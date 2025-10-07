@@ -21,7 +21,7 @@ export default function Homepage() {
         <h1 className="text-center">Dove sarà il tuo prossimo viaggio?</h1>
         <form
           className="d-flex justify-content-center my-4"
-          onSubmit={handleSubmit}
+          onChange={handleSubmit}
         >
           <input
             className="form-control w-50"
@@ -43,9 +43,6 @@ export default function Homepage() {
             <option value="storica">storica</option>
             <option value="città d'arte">città d'arte</option>
           </select>
-          <button className="btn btn-outline-success ms-2" type="submit">
-            Cerca
-          </button>
         </form>
       </div>
       {destinations.length > 0 && (
