@@ -38,10 +38,10 @@ export default function Homepage() {
             onChange={(e) => setType(e.target.value)}
           >
             <option value="">Tipo di città</option>
-            <option value="grande">grande città</option>
-            <option value="marittima">città marittima</option>
+            <option value="grande città">grande città</option>
+            <option value="città marittima">città marittima</option>
             <option value="storica">storica</option>
-            <option value="arte">città d'arte</option>
+            <option value="città d'arte">città d'arte</option>
           </select>
           <button className="btn btn-outline-success ms-2" type="submit">
             Cerca
