@@ -27,8 +27,8 @@ export default function Header() {
                 </NavLink>
               </li>
               <li className="nav-item">
-                <NavLink className="nav-link" to="/chisiamo">
-                  chi siamo
+                <NavLink className="nav-link" to="/destinazioni">
+                  Destinazioni
                 </NavLink>
               </li>
             </ul>
