@@ -4,6 +4,7 @@ import DefaultLayout from "./layout/DefaultLayout";
 import Homepage from "./pages/Homepage";
 import DetailTravel from "./pages/DetailTravel";
 import AllDestinations from "./pages/AllDestinations";
+import Wishlist from "./pages/Wishlist";
 
 export default function App() {
   return (
@@ -14,6 +15,7 @@ export default function App() {
             <Route path="/" element={<Homepage />} />
             <Route path="/:id" element={<DetailTravel />} />
             <Route path="/destinazioni" element={<AllDestinations />} />
+            <Route path="/wishlist" element={<Wishlist />} />
           </Route>
         </Routes>
       </BrowserRouter>

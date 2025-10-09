@@ -56,7 +56,7 @@ export default function Homepage() {
           </select>
         </form>
       </div>
-      {destinations.length > 0 && (
+      {destinations.length >= 0 && (
         <div className="container">
           <div className="d-flex justify-content-center my-4">
             <button className="btn btn-secondary m-2">
@@ -96,15 +96,21 @@ export default function Homepage() {
                   border: "1px solid #ccc",
                 }}
               >
-                <ul className="list-group">
-                  {compareList.map((destination) => (
-                    <ListTravelCard
-                      destination={destination}
-                      key={destination.id}
-                      removeFromCompare={removeFromCompare}
-                    />
-                  ))}
-                </ul>
+                {compareList.length > 0 ? (
+                  <ul className="list-group">
+                    {compareList.map((destination) => (
+                      <ListTravelCard
+                        destination={destination}
+                        key={destination.id}
+                        removeFromCompare={removeFromCompare}
+                      />
+                    ))}
+                  </ul>
+                ) : (
+                  <p className="text-center text-secondary mt-4">
+                    Nessuna destinazione selezionata....
+                  </p>
+                )}
               </div>
             </div>
           </div>
