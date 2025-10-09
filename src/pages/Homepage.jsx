@@ -1,10 +1,13 @@
 import { useState } from "react";
 import { useTravel } from "../context/destination.context";
+import CardTravel from "../components/CardTravel";
+import ListTravelCard from "../components/ListTravelCard";
 
 export default function Homepage() {
   const [search, setSearch] = useState("");
   const [type, setType] = useState("");
   const { destinations, getDestinations } = useTravel();
+  const [compareList, setCompareList] = useState([]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -15,10 +18,18 @@ export default function Homepage() {
     getDestinations(params.toString());
   };
 
+  const addToCompare = (destination) => {
+    if (compareList.find((item) => item.id === destination.id)) return;
+    setCompareList((prevList) => [...prevList, destination]);
+  };
+  const removeFromCompare = (id) => {
+    setCompareList((prevList) => prevList.filter((item) => item.id !== id));
+  };
+
   return (
     <>
       <div className="container">
-        <h1 className="text-center">Dove sarà il tuo prossimo viaggio?</h1>
+        <h1 className="text-center m-5">Dove sarà il tuo prossimo viaggio?</h1>
         <form
           className="d-flex justify-content-center my-4"
           onChange={handleSubmit}
@@ -47,14 +58,56 @@ export default function Homepage() {
       </div>
       {destinations.length > 0 && (
         <div className="container">
-          <h2 className="text-center">Risultati della ricerca:</h2>
-          <ul className="list-group">
-            {destinations.map((destination) => (
-              <li key={destination.id} className="list-group-item">
-                {destination.title}
-              </li>
-            ))}
-          </ul>
+          <div className="d-flex justify-content-center my-4">
+            <button className="btn btn-secondary m-2">
+              Tutte le destinazioni
+            </button>
+            <button className="btn btn-primary m-2">Comparatore</button>
+          </div>
+          <div className="row">
+            <div className="col-6">
+              <h3 className="text-center">Risultati della ricerca</h3>
+              <div
+                className="row overflow-scroll border p-2 mx-2"
+                style={{
+                  maxHeight: "80vh",
+                  scrollbarWidth: "none",
+                  borderRadius: "10px",
+                  border: "1px solid #ccc",
+                }}
+              >
+                {destinations.map((destination) => (
+                  <CardTravel
+                    destination={destination}
+                    key={destination.id}
+                    addToCompare={addToCompare}
+                  />
+                ))}
+              </div>
+            </div>
+            <div className="col-6">
+              <h3 className="text-center">Destinazioni Selezionate</h3>
+              <div
+                className="row overflow-scroll border p-2 mx-2"
+                style={{
+                  maxHeight: "80vh",
+                  scrollbarWidth: "none",
+                  borderRadius: "10px",
+                  border: "1px solid #ccc",
+                }}
+              >
+                <ul className="list-group">
+                  {compareList.map((destination) => (
+                    <ListTravelCard
+                      destination={destination}
+                      key={destination.id}
+                      removeFromCompare={removeFromCompare}
+                    />
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
         </div>
       )}
     </>

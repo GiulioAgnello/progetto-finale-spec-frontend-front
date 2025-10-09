@@ -1,5 +1,6 @@
 import { useTravel } from "../context/destination.context";
 import { useEffect, useState } from "react";
+import CardTravel from "../components/CardTravel";
 
 export default function AllDestinations() {
   const { destinations, getDestinations } = useTravel();
@@ -37,19 +38,7 @@ export default function AllDestinations() {
         </div>
         <div className="row">
           {destinations.map((destination) => (
-            <div className="col-md-4" key={destination.id}>
-              <div className="card mb-4">
-                {/* <img
-                  src={destination.image}
-                  alt={destination.name}
-                  className="card-img-top"
-                /> */}
-                <div className="card-body">
-                  <h5 className="card-title">{destination.title}</h5>
-                  <p className="card-text">{destination.country}</p>
-                </div>
-              </div>
-            </div>
+            <CardTravel key={destination.id} destination={destination} />
           ))}
         </div>
       </div>
