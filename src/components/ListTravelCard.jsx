@@ -31,7 +31,7 @@ export default function ListTravelCard({ destination, removeFromCompare }) {
       </div>
       <div className="d-flex justify-content-center align-items-center">
         <button
-          onClick={addToWishlist}
+          onClick={() => addToWishlist(destination)}
           className="btn btn-primary btn-sm mt-2 w-100"
         >
           Aggiungi a Preferiti

@@ -21,9 +21,22 @@ const TravelProvider = ({ children }) => {
     }
   };
 
+  const addToWishlist = (destination) => {
+    const wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+    if (!wishlist.find((item) => item.id === destination.id)) {
+      wishlist.push(destination);
+      localStorage.setItem("wishlist", JSON.stringify(wishlist));
+    }
+  };
+
   return (
     <TravelContext.Provider
-      value={{ destinations, setDestinations, getDestinations }}
+      value={{
+        destinations,
+        setDestinations,
+        getDestinations,
+        addToWishlist,
+      }}
     >
       {children}
     </TravelContext.Provider>
