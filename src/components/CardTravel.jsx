@@ -1,6 +1,10 @@
+import { useTravel } from "../context/destination.context";
+
 export default function CardTravel({ destination, addToCompare }) {
   const { title, image, country, flag, bestSeason, costLevel, price } =
     destination;
+
+  const { addToWishlist } = useTravel();
 
   // Badge dinamico per costLevel
   let costBadge = null;
@@ -51,11 +55,19 @@ export default function CardTravel({ destination, addToCompare }) {
               €{price}
             </p>
           )}
+          {addToCompare ? (
+            <button
+              className="buttonCompare"
+              onClick={() => addToCompare(destination)}
+            >
+              Compara
+            </button>
+          ) : null}
           <button
-            className="btn btn-outline-primary mt-2"
-            onClick={() => addToCompare(destination)}
+            onClick={() => addToWishlist(destination)}
+            className="buttonwishlist"
           >
-            Aggiungi al comparatore
+            wishlist
           </button>
         </div>
       </div>

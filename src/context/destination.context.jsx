@@ -22,11 +22,14 @@ const TravelProvider = ({ children }) => {
   };
 
   const addToWishlist = (destination) => {
-    const wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
-    if (!wishlist.find((item) => item.id === destination.id)) {
+    let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+    const exists = wishlist.find((item) => item.id === destination.id);
+    if (exists) {
+      wishlist = wishlist.filter((item) => item.id !== destination.id);
+    } else {
       wishlist.push(destination);
-      localStorage.setItem("wishlist", JSON.stringify(wishlist));
     }
+    localStorage.setItem("wishlist", JSON.stringify(wishlist));
   };
 
   return (

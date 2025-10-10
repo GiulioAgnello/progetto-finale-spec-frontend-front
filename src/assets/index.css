@@ -1,21 +1,56 @@
-.animateLogo {
-  font-size: 2rem;
-  background: linear-gradient(
-    90deg,
-    #8e113b,
-    #fa4242,
-    #fc7566,
-    #ff89db,
-    #56a5ea,
-    #8e113b
-  );
-  background-size: cover;
-  background-clip: text;
-  color: transparent;
-  animation: animate 3s linear infinite;
+.navbar {
+  background-color: #b9d1ea;
+  padding: 10px 20px;
 }
-@keyframes animate {
-  to {
-    background-position-x: 200px;
-  }
+
+img {
+  width: 100px;
+}
+
+.itemsNav {
+  margin-left: 20px;
+  font-size: 18px;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.itemsNav:hover {
+  color: #000000;
+  transition: 0.3s;
+
+  cursor: pointer;
+  transform: scale(1.1);
+}
+
+.nav-link {
+  color: #ffffff;
+}
+
+.wrapper {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(80px);
+}
+
+.buttonCompare {
+  background-color: #ef7833;
+  color: white;
+  border: none;
+  padding: 2px 4px;
+  font-size: 12px;
+  border-radius: 5px;
+  cursor: pointer;
+
+  margin-top: 10px;
+}
+
+.buttonCompare:hover {
+  background-color: #ffffff;
+  color: #ef7833;
+  border: #ef7833 solid 1px;
+  transition: 0.3s;
 }

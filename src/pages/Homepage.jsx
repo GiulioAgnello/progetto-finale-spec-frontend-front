@@ -29,7 +29,9 @@ export default function Homepage() {
   return (
     <>
       <div className="container">
-        <h1 className="text-center m-5">Dove sarà il tuo prossimo viaggio?</h1>
+        <h1 className="text-center m-5 text-white">
+          Dove sarà il tuo prossimo viaggio?
+        </h1>
         <form
           className="d-flex justify-content-center my-4"
           onChange={handleSubmit}
