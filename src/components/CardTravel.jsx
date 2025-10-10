@@ -26,7 +26,11 @@ export default function CardTravel({ destination, addToCompare }) {
   return (
     <div className="col-md-4 mb-4" key={destination.id}>
       <div className="card mb-4 shadow-sm h-100">
-        <img src={image} alt={title} className="card-img-top" />
+        <img
+          src={`../../public/destinationPhoto/${title}.jpg`}
+          alt={title}
+          className="card-img-top"
+        />
         <div className="card-body">
           <div className="d-flex align-items-center mb-2">
             {flag && (

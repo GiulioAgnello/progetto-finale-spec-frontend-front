@@ -1,3 +1,11 @@
 export default function Footer() {
-  return <h1>Footer</h1>;
+  return (
+    <>
+      <footer>
+        <p className="mb-0">
+          © 2025 Dream Experience. Tutti i diritti riservati.
+        </p>
+      </footer>
+    </>
+  );
 }

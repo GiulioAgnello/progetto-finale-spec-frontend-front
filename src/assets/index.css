@@ -54,3 +54,43 @@ img {
   border: #ef7833 solid 1px;
   transition: 0.3s;
 }
+
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.navbar::scroll-marker {
+  background-color: transparent;
+}
+body {
+  background-image: url(../../public/tour-norvegia-lofoten-capo-nord.jpg);
+
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.destinazioni {
+  text-align: center;
+  color: white;
+  font-weight: 700;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+main {
+  min-height: 80vh;
+  padding-bottom: 60px; /* Altezza del footer */
+}
+footer {
+  background-color: #333;
+  color: white;
+  text-align: center;
+  padding: 10px 0;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+}

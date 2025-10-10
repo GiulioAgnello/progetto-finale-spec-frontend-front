@@ -60,22 +60,18 @@ export default function Homepage() {
       </div>
       {destinations.length >= 0 && (
         <div className="container">
-          <div className="d-flex justify-content-center my-4">
-            <button className="btn btn-secondary m-2">
-              Tutte le destinazioni
-            </button>
-            <button className="btn btn-primary m-2">Comparatore</button>
-          </div>
+          <div className="d-flex justify-content-center my-4"></div>
           <div className="row">
-            <div className="col-6">
-              <h3 className="text-center">Risultati della ricerca</h3>
+            <div className="col-9">
+              {destinations.length > 0 && (
+                <h3 className="destinazioni">Destinazioni</h3>
+              )}
               <div
-                className="row overflow-scroll border p-2 mx-2"
+                className="row overflow-scroll  p-2 mx-2"
                 style={{
                   maxHeight: "80vh",
                   scrollbarWidth: "none",
                   borderRadius: "10px",
-                  border: "1px solid #ccc",
                 }}
               >
                 {destinations.map((destination) => (
@@ -87,15 +83,16 @@ export default function Homepage() {
                 ))}
               </div>
             </div>
-            <div className="col-6">
-              <h3 className="text-center">Destinazioni Selezionate</h3>
+            <div className="col-3">
+              {destinations.length > 0 && (
+                <h3 className="destinazioni">Compara</h3>
+              )}
               <div
-                className="row overflow-scroll border p-2 mx-2"
+                className="row overflow-scroll  p-2 mx-2"
                 style={{
                   maxHeight: "80vh",
                   scrollbarWidth: "none",
                   borderRadius: "10px",
-                  border: "1px solid #ccc",
                 }}
               >
                 {compareList.length > 0 ? (
@@ -108,11 +105,7 @@ export default function Homepage() {
                       />
                     ))}
                   </ul>
-                ) : (
-                  <p className="text-center text-secondary mt-4">
-                    Nessuna destinazione selezionata....
-                  </p>
-                )}
+                ) : null}
               </div>
             </div>
           </div>

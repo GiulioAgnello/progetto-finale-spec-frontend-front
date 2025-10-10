@@ -3,7 +3,7 @@ import { Link, NavLink } from "react-router-dom";
 export default function Header() {
   return (
     <>
-      <nav className="navbar navbar-expand-lg bg-transparent">
+      <nav className="navbar navbar-expand-lg bg-transparent ">
         <div className="container-fluid">
           <img src="logo.png" alt="Dnav-itemreamExperience" />
           <button
