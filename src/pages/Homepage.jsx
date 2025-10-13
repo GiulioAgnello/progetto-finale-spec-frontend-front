@@ -2,11 +2,20 @@ import { useState } from "react";
 import { useTravel } from "../context/destination.context";
 import CardTravel from "../components/CardTravel";
 import ListTravelCard from "../components/ListTravelCard";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowDownAZ, faArrowUpZA } from "@fortawesome/free-solid-svg-icons";
 
 export default function Homepage() {
   const [search, setSearch] = useState("");
   const [type, setType] = useState("");
-  const { destinations, getDestinations, setDestinations } = useTravel();
+  const {
+    destinations,
+    getDestinations,
+    setDestinations,
+    orderForName,
+    setSortAsc,
+    sortAsc,
+  } = useTravel();
   const [compareList, setCompareList] = useState([]);
   const [showList, setShowList] = useState(true);
   const [showCompare, setShowCompare] = useState(false);
@@ -27,15 +36,6 @@ export default function Homepage() {
   const removeFromCompare = (id) => {
     setCompareList((prevList) => prevList.filter((item) => item.id !== id));
   };
-
-  function orderForName() {
-    const sorted = [...destinations].sort((a, b) => {
-      if (a.title.b.title) return -1;
-      if (a.title > b.title) return 1;
-    });
-    setDestinations(sorted);
-    return sorted;
-  }
 
   return (
     <>
@@ -91,6 +91,22 @@ export default function Homepage() {
               Comparatore
             </div>
           </div>
+          <div
+            onClick={() => {
+              orderForName();
+              setSortAsc((prev) => !prev);
+            }}
+            className="sortButton"
+          >
+            {sortAsc ? (
+              <FontAwesomeIcon icon={faArrowUpZA} style={{ padding: "10px" }} />
+            ) : (
+              <FontAwesomeIcon
+                icon={faArrowDownAZ}
+                style={{ padding: "10px" }}
+              />
+            )}
+          </div>
           <div className="row">
             {!showCompare ? (
               <div className="col-12">
@@ -103,7 +119,6 @@ export default function Homepage() {
                     borderRadius: "10px",
                   }}
                 >
-                  <button onClick={orderForName}>order</button>
                   {destinations.map((destination) => (
                     <CardTravel
                       destination={destination}

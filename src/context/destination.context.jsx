@@ -4,6 +4,7 @@ const TravelContext = createContext();
 
 const TravelProvider = ({ children }) => {
   const [destinations, setDestinations] = useState([]);
+  const [sortAsc, setSortAsc] = useState(true);
 
   const getDestinations = async (query) => {
     try {
@@ -32,6 +33,13 @@ const TravelProvider = ({ children }) => {
     localStorage.setItem("wishlist", JSON.stringify(wishlist));
   };
 
+  function orderForName() {
+    const sorted = [...destinations].sort((a, b) =>
+      sortAsc ? a.title.localeCompare(b.title) : b.title.localeCompare(a.title)
+    );
+    setDestinations(sorted);
+  }
+
   return (
     <TravelContext.Provider
       value={{
@@ -39,6 +47,9 @@ const TravelProvider = ({ children }) => {
         setDestinations,
         getDestinations,
         addToWishlist,
+        orderForName,
+        sortAsc,
+        setSortAsc,
       }}
     >
       {children}
