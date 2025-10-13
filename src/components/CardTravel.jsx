@@ -1,11 +1,15 @@
+import { useNavigate } from "react-router-dom";
 import { useTravel } from "../context/destination.context";
-
 export default function CardTravel({ destination, addToCompare }) {
   const { title, image, country, flag, bestSeason, costLevel, price } =
     destination;
 
   const { addToWishlist } = useTravel();
+  const navigate = useNavigate();
 
+  const goToDetail = () => {
+    navigate(`/${destination.id}`);
+  };
   // Badge dinamico per costLevel
   let costBadge = null;
   if (costLevel) {
@@ -72,6 +76,9 @@ export default function CardTravel({ destination, addToCompare }) {
             className="buttonwishlist"
           >
             wishlist
+          </button>
+          <button onClick={goToDetail} className="buttonDetail">
+            Dettagli
           </button>
         </div>
       </div>

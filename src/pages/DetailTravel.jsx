@@ -1,12 +1,12 @@
 import { useParams } from "react-router-dom";
-
+import { useEffect, useState } from "react";
 export default function DetailTravel() {
   const { id } = useParams();
   const [destination, setDestinations] = useState({});
 
-  const getDestinations = async (query) => {
+  const getDestinations = async (id) => {
     try {
-      const url = query`http://localhost:3001/cities/${id}`;
+      const url = `http://localhost:3001/cities/${id}`;
 
       console.log("Fetching:", url);
       const response = await fetch(url);
