@@ -38,29 +38,31 @@ export default function AllDestinations() {
                 onChange={(e) => setSearch(e.target.value)}
               />
             </form>
-            <div className="d-flex align-items-center mt-3">
-              <div
-                onClick={() => {
-                  orderForName();
-                  setSortAsc((prev) => !prev);
-                }}
-                className="sortButton"
-              >
-                {sortAsc ? (
-                  <FontAwesomeIcon
-                    icon={faArrowUpZA}
-                    style={{ padding: "10px" }}
-                  />
-                ) : (
-                  <FontAwesomeIcon
-                    icon={faArrowDownAZ}
-                    style={{ padding: "10px" }}
-                  />
-                )}
-              </div>
+          </div>
+          <div className="col-6">
+            <div
+              onClick={() => {
+                orderForName();
+                setSortAsc((prev) => !prev);
+              }}
+              className="sortButton"
+            >
+              {sortAsc ? (
+                <FontAwesomeIcon
+                  icon={faArrowUpZA}
+                  style={{ padding: "10px" }}
+                />
+              ) : (
+                <FontAwesomeIcon
+                  icon={faArrowDownAZ}
+                  style={{ padding: "10px" }}
+                />
+              )}
             </div>
           </div>
         </div>
+      </div>
+      <div className="container">
         <div className="row">
           {destinations.map((destination) => (
             <CardTravel key={destination.id} destination={destination} />
