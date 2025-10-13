@@ -6,7 +6,7 @@ import ListTravelCard from "../components/ListTravelCard";
 export default function Homepage() {
   const [search, setSearch] = useState("");
   const [type, setType] = useState("");
-  const { destinations, getDestinations } = useTravel();
+  const { destinations, getDestinations, setDestinations } = useTravel();
   const [compareList, setCompareList] = useState([]);
   const [showList, setShowList] = useState(true);
   const [showCompare, setShowCompare] = useState(false);
@@ -27,6 +27,15 @@ export default function Homepage() {
   const removeFromCompare = (id) => {
     setCompareList((prevList) => prevList.filter((item) => item.id !== id));
   };
+
+  function orderForName() {
+    const sorted = [...destinations].sort((a, b) => {
+      if (a.title.b.title) return -1;
+      if (a.title > b.title) return 1;
+    });
+    setDestinations(sorted);
+    return sorted;
+  }
 
   return (
     <>
@@ -94,6 +103,7 @@ export default function Homepage() {
                     borderRadius: "10px",
                   }}
                 >
+                  <button onClick={orderForName}>order</button>
                   {destinations.map((destination) => (
                     <CardTravel
                       destination={destination}
