@@ -20,7 +20,7 @@ export default function Wishlist() {
     <>
       <div className="container">
         <div className="wrapper">
-          <h1 className="text-center">Wishlist</h1>
+          <h1 className="wishTitle">Wishlist</h1>
           <ul>
             <div className="row">
               {wishlist.map((item) => (

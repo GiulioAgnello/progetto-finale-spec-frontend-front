@@ -8,6 +8,8 @@ export default function Homepage() {
   const [type, setType] = useState("");
   const { destinations, getDestinations } = useTravel();
   const [compareList, setCompareList] = useState([]);
+  const [showList, setShowList] = useState(true);
+  const [showCompare, setShowCompare] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -58,56 +60,99 @@ export default function Homepage() {
           </select>
         </form>
       </div>
-      {destinations.length >= 0 && (
+      {destinations.length > 0 && (
         <div className="container">
-          <div className="d-flex justify-content-center my-4"></div>
-          <div className="row">
-            <div className="col-9">
-              {destinations.length > 0 && (
-                <h3 className="destinazioni">Destinazioni</h3>
-              )}
-              <div
-                className="row overflow-scroll  p-2 mx-2"
-                style={{
-                  maxHeight: "80vh",
-                  scrollbarWidth: "none",
-                  borderRadius: "10px",
-                }}
-              >
-                {destinations.map((destination) => (
-                  <CardTravel
-                    destination={destination}
-                    key={destination.id}
-                    addToCompare={addToCompare}
-                  />
-                ))}
-              </div>
+          <div className="d-flex justify-content-center my-4">
+            <div
+              className="setListOrCompare"
+              onClick={() => {
+                setShowList(true);
+                setShowCompare(false);
+              }}
+            >
+              Destinazioni
             </div>
-            <div className="col-3">
-              {destinations.length > 0 && (
-                <h3 className="destinazioni">Compara</h3>
-              )}
-              <div
-                className="row overflow-scroll  p-2 mx-2"
-                style={{
-                  maxHeight: "80vh",
-                  scrollbarWidth: "none",
-                  borderRadius: "10px",
-                }}
-              >
-                {compareList.length > 0 ? (
-                  <ul className="list-group">
-                    {compareList.map((destination) => (
-                      <ListTravelCard
+            <div
+              className="setListOrCompare"
+              onClick={() => {
+                setShowList(false);
+                setShowCompare(true);
+              }}
+            >
+              Comparatore
+            </div>
+          </div>
+          <div className="row">
+            {!showCompare ? (
+              <div className="col-12">
+                <h3 className="destinazioni">Destinazioni</h3>
+                <div
+                  className="row overflow-scroll p-2 mx-2"
+                  style={{
+                    maxHeight: "80vh",
+                    scrollbarWidth: "none",
+                    borderRadius: "10px",
+                  }}
+                >
+                  {destinations.map((destination) => (
+                    <CardTravel
+                      destination={destination}
+                      key={destination.id}
+                      addToCompare={addToCompare}
+                    />
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <>
+                <div className="col-9">
+                  <h3 className="destinazioni">Destinazioni</h3>
+                  <div
+                    className="row overflow-scroll p-2 mx-2"
+                    style={{
+                      maxHeight: "80vh",
+                      scrollbarWidth: "none",
+                      borderRadius: "10px",
+                    }}
+                  >
+                    {destinations.map((destination) => (
+                      <CardTravel
                         destination={destination}
                         key={destination.id}
-                        removeFromCompare={removeFromCompare}
+                        addToCompare={addToCompare}
                       />
                     ))}
-                  </ul>
-                ) : null}
-              </div>
-            </div>
+                  </div>
+                </div>
+                <div className="col-3">
+                  <h3 className="destinazioni">Compara</h3>
+                  <div
+                    className="row overflow-scroll p-2 mx-2"
+                    style={{
+                      maxHeight: "80vh",
+                      scrollbarWidth: "none",
+                      borderRadius: "10px",
+                    }}
+                  >
+                    {compareList.length > 0 ? (
+                      <ul className="list-group">
+                        {compareList.map((destination) => (
+                          <ListTravelCard
+                            destination={destination}
+                            key={destination.id}
+                            removeFromCompare={removeFromCompare}
+                          />
+                        ))}
+                      </ul>
+                    ) : (
+                      <p className="text-center text-secondary mt-4">
+                        Nessuna destinazione selezionata....
+                      </p>
+                    )}
+                  </div>
+                </div>
+              </>
+            )}
           </div>
         </div>
       )}

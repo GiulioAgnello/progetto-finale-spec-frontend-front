@@ -3,6 +3,14 @@
   padding: 10px 20px;
 }
 
+.navbar-nav {
+  border-radius: 30px;
+  box-shadow: 0px 0px 30px rgba(227, 228, 237, 0.37);
+  padding: 10px;
+  backdrop-filter: blur(5px);
+  border: 2px solid rgba(255, 255, 255, 0.18);
+}
+
 img {
   width: 100px;
 }
@@ -30,10 +38,11 @@ img {
   margin-top: 20px;
   margin-bottom: 20px;
   padding: 20px;
-  background-color: rgba(255, 255, 255, 0.8);
+  box-shadow: 0px 0px 30px rgba(227, 228, 237, 0.37);
+
+  backdrop-filter: blur(5px);
+  border: 2px solid rgba(255, 255, 255, 0.18);
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(80px);
 }
 
 .buttonCompare {
@@ -93,4 +102,31 @@ footer {
   position: relative;
   bottom: 0;
   width: 100%;
+}
+
+.wishTitle {
+  text-align: center;
+  padding: 20px;
+  font-size: 4rem;
+  color: white;
+  font-weight: 700;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+.setListOrCompare {
+  box-shadow: 0px 0px 30px rgba(227, 228, 237, 0.37);
+  cursor: pointer;
+  padding: 5px 15px;
+  margin: 10px;
+  backdrop-filter: blur(5px);
+  color: white;
+  border: 2px solid rgba(255, 255, 255, 0.18);
+  border-radius: 20px;
+}
+
+.setListOrCompare:hover {
+  backdrop-filter: none;
+  background-color: #ef7833;
+
+  transform: scale(1.2);
 }
