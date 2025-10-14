@@ -19,8 +19,8 @@ export default function Header() {
           </button>
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav ms-auto me-5 ">
-              <li className="itemsNav">
-                <NavLink className="nav-link" aria-current="page" to="/">
+              <li className="itemsNav active -">
+                <NavLink className="nav-link " aria-current="page" to="/">
                   Home
                 </NavLink>
               </li>
@@ -41,3 +41,4 @@ export default function Header() {
     </>
   );
 }
++-
