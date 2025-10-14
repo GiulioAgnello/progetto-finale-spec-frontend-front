@@ -49,19 +49,18 @@ img {
   background-color: #ef7833;
   color: white;
   border: none;
-  padding: 2px 4px;
-  font-size: 12px;
+  padding: 5px 10px;
+  font-size: 14px;
   border-radius: 5px;
   cursor: pointer;
-
-  margin-top: 10px;
+  margin-right: 10px;
 }
 
 .buttonCompare:hover {
   background-color: #ffffff;
   color: #ef7833;
-  border: #ef7833 solid 1px;
-  transition: 0.3s;
+  border: none;
+  transition: 0.4s;
 }
 
 .navbar {
@@ -148,4 +147,61 @@ footer {
   background-color: #ef7833;
 
   transform: scale(1.2);
+}
+
+.fi {
+  width: 20px;
+  height: 15px;
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  color: #ffffff;
+  backdrop-filter: blur(50px);
+  -webkit-backdrop-filter: blur(px);
+  border-radius: 10px;
+  border: none;
+  transition: transform 0.3s ease;
+}
+
+.buttonwishlist {
+  font-size: 1.5rem;
+  color: grey;
+  cursor: pointer;
+}
+
+.buttonwishlist:hover {
+  color: red;
+  transform: scale(1.2);
+}
+.buttonwishlist:active {
+  transform: scale(0.9);
+}
+
+/* Aggiungi classi per i diversi stati */
+.buttonwishlist.active {
+  color: red;
+}
+
+.buttonwishlist.inactive {
+  color: red;
+}
+
+.buttonDetail {
+  background-color: #ef7833;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  font-size: 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.buttonDetail:hover {
+  background-color: #ffffff;
+  color: #ef7833;
+  border: none;
+  transition: 0.4s;
 }
