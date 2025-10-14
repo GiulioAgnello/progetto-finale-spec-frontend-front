@@ -23,9 +23,15 @@ export default function Wishlist() {
           <h1 className="wishTitle">Wishlist</h1>
           <ul>
             <div className="row">
-              {wishlist.map((item) => (
-                <CardTravel key={item.id} destination={item} />
-              ))}
+              {wishlist.length > 0 ? (
+                wishlist.map((item) => (
+                  <CardTravel key={item.id} destination={item} />
+                ))
+              ) : (
+                <p className="text-center text-light fs-2">
+                  Nessuna destinazione in wishlist!
+                </p>
+              )}
             </div>
           </ul>
         </div>

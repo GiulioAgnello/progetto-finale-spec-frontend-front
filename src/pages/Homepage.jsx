@@ -32,6 +32,9 @@ export default function Homepage() {
   const addToCompare = (destination) => {
     if (compareList.find((item) => item.id === destination.id)) return;
     setCompareList((prevList) => [...prevList, destination]);
+    // Passa alla vista comparatore quando aggiungi un elemento
+    setShowList(false);
+    setShowCompare(true);
   };
   const removeFromCompare = (id) => {
     setCompareList((prevList) => prevList.filter((item) => item.id !== id));
@@ -170,8 +173,8 @@ export default function Homepage() {
                         ))}
                       </ul>
                     ) : (
-                      <p className="text-center text-secondary mt-4">
-                        Nessuna destinazione selezionata....
+                      <p className="text-center text-light mt-4">
+                        Seleziona almeno una destinazione da comparare...
                       </p>
                     )}
                   </div>

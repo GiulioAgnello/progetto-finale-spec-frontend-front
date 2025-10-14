@@ -1,20 +1,26 @@
 import { useTravel } from "../context/destination.context";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 export default function ListTravelCard({ destination, removeFromCompare }) {
   const { addToWishlist } = useTravel();
 
   return (
-    <li
-      key={destination.id}
-      className="list-group-item mb-2 p-2 border rounded"
-    >
-      <div className="d-flex flex-row justify-content-between align-items-center">
-        <span className="fw-bold fs-5">{destination.title}</span>
-        <span className="text-secondary">{destination.country}</span>
+    <li className="cardListCompare list-group-item mb-3 p-3  shadow-sm">
+      <div className="d-flex justify-content-between align-items-center mb-2">
+        <div>
+          <h6 className="fw-bold mb-0 text-white">{destination.title}</h6>
+          <small className="text-light">{destination.country}</small>
+        </div>
+        {destination.price && (
+          <span className="fw-bold text-primary">€{destination.price}</span>
+        )}
+      </div>
 
+      <div className="mb-3">
         {destination.costLevel && (
-          <div
-            className={`badge w-25 ${
+          <span
+            className={`badge ${
               destination.costLevel.toLowerCase() === "economica"
                 ? "bg-success"
                 : destination.costLevel.toLowerCase() === "media"
@@ -23,23 +29,22 @@ export default function ListTravelCard({ destination, removeFromCompare }) {
             }`}
           >
             Costo: {destination.costLevel}
-          </div>
-        )}
-        {destination.price && (
-          <span className="fw-bold my-1">€{destination.price}</span>
+          </span>
         )}
       </div>
-      <div className="d-flex justify-content-center align-items-center">
-        <button
+
+      <div className="d-flex gap-2">
+        <div
+          className="buttonwishlist"
           onClick={() => addToWishlist(destination)}
-          className="btn btn-primary btn-sm mt-2 w-100"
         >
-          Aggiungi a Preferiti
-        </button>
+          <FontAwesomeIcon icon={faHeart} className="me-1" />
+        </div>
         <button
           onClick={() => removeFromCompare(destination.id)}
-          className="btn btn-danger btn-sm mt-2 align-self-end w-100"
+          className="btn btn-outline-danger btn-sm flex-fill"
         >
+          <FontAwesomeIcon icon={faTrash} className="me-1" />
           Rimuovi
         </button>
       </div>
