@@ -15,19 +15,20 @@ export default function Homepage() {
     orderForName,
     setSortAsc,
     sortAsc,
+    debounce,
   } = useTravel();
   const [compareList, setCompareList] = useState([]);
   const [showList, setShowList] = useState(true);
   const [showCompare, setShowCompare] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = debounce((e) => {
     e.preventDefault();
-    // Costruisci la querystring
+    // Per prendere la querystring
     const params = new URLSearchParams();
     if (search) params.append("q", search);
     if (type) params.append("type", type);
     getDestinations(params.toString());
-  };
+  }, 1000);
 
   const addToCompare = (destination) => {
     if (compareList.find((item) => item.id === destination.id)) return;

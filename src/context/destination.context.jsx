@@ -5,7 +5,6 @@ const TravelContext = createContext();
 const TravelProvider = ({ children }) => {
   const [destinations, setDestinations] = useState([]);
   const [sortAsc, setSortAsc] = useState(true);
-
   const getDestinations = async (query) => {
     try {
       const url = query
@@ -40,6 +39,16 @@ const TravelProvider = ({ children }) => {
     setDestinations(sorted);
   }
 
+  function debounce(callback, delay) {
+    let timer;
+    return (value) => {
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        callback(value);
+      }, delay);
+    };
+  }
+
   return (
     <TravelContext.Provider
       value={{
@@ -50,6 +59,7 @@ const TravelProvider = ({ children }) => {
         orderForName,
         sortAsc,
         setSortAsc,
+        debounce,
       }}
     >
       {children}
