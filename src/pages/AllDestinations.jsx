@@ -1,41 +1,47 @@
 import { useTravel } from "../context/destination.context";
-import { useEffect, useState } from "react";
+import { useEffect, useRef } from "react";
 import CardTravel from "../components/CardTravel";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowDownAZ, faArrowUpZA } from "@fortawesome/free-solid-svg-icons";
 
 export default function AllDestinations() {
-  const { destinations, getDestinations, orderForName, setSortAsc, sortAsc } =
-    useTravel();
-  const [search, setSearch] = useState("");
+  const {
+    destinations,
+    getDestinations,
+    orderForName,
+    setSortAsc,
+    sortAsc,
+    debounce,
+  } = useTravel();
+  const searchInputRef = useRef(null);
 
   useEffect(() => {
     getDestinations();
   }, []);
 
-  const handleSearch = (e) => {
+  const handleSearch = debounce((e) => {
     e.preventDefault();
     const params = new URLSearchParams();
-    if (search) params.append("search", search);
+    const searchValue = searchInputRef.current.value;
+    if (searchValue) params.append("search", searchValue);
     getDestinations(params.toString());
-  };
+  }, 1000);
 
   return (
     <>
       <div className="container">
+        <h1 className="text-center m-5 text-white">
+          Tutte le nostre Destinazioni
+        </h1>
         <div className="row d-flex align-items-center mb-4">
           <div className="col-6">
             <form onChange={handleSearch}>
-              <label className="col-form-label" htmlFor="search">
-                Cerca una destinazione:
-              </label>
-
               <input
                 className="form-control"
                 type="text"
+                placeholder="Cerca una destinazione..."
                 id="search"
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
+                ref={searchInputRef}
               />
             </form>
           </div>

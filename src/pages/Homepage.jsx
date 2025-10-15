@@ -7,7 +7,7 @@ import { faArrowDownAZ, faArrowUpZA } from "@fortawesome/free-solid-svg-icons";
 
 export default function Homepage() {
   const [search, setSearch] = useState("");
-  const [type, setType] = useState("");
+  const [category, setCategory] = useState("");
   const {
     destinations,
     getDestinations,
@@ -25,8 +25,8 @@ export default function Homepage() {
     e.preventDefault();
     // Per prendere la querystring
     const params = new URLSearchParams();
-    if (search) params.append("q", search);
-    if (type) params.append("type", type);
+    if (search) params.append("search", search);
+    if (category) params.append("category", category);
     getDestinations(params.toString());
   }, 1000);
 
@@ -62,8 +62,8 @@ export default function Homepage() {
           <select
             className="form-select ms-2 w-25"
             aria-label="Tipo di città"
-            value={type}
-            onChange={(e) => setType(e.target.value)}
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
           >
             <option value="">Tipo di città</option>
             <option value="grande città">grande città</option>
