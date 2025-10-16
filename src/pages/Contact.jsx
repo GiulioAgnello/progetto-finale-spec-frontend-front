@@ -63,7 +63,7 @@ export default function Contact() {
                   </div>
                 </div>
 
-                {/* Contact Form */}
+                {/* Form contatto  */}
                 <div className="col-md-6">
                   <div className="contact-form">
                     <h2 className="h3 fw-semibold text-light mb-4">
