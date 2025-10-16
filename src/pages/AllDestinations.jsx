@@ -16,6 +16,7 @@ export default function AllDestinations() {
   const searchInputRef = useRef(null);
 
   useEffect(() => {
+    searchInputRef.current.focus();
     getDestinations();
   }, []);
 
