@@ -21,14 +21,26 @@ export default function Homepage() {
   const [showList, setShowList] = useState(true);
   const [showCompare, setShowCompare] = useState(false);
 
-  const handleSubmit = debounce((e) => {
-    e.preventDefault();
+  const handleSearchFetch = debounce((searchValue) => {
     // Per prendere la querystring
     const params = new URLSearchParams();
-    if (search) params.append("search", search);
+    if (searchValue) params.append("search", searchValue);
     if (category) params.append("category", category);
+    console.log("Search fetch - search:", searchValue, "category:", category);
+    console.log("Query string:", params.toString());
     getDestinations(params.toString());
-  }, 1000);
+  }, 500);
+
+  const handleFetch = (e) => {
+    const newCategory = e.target.value;
+    setCategory(newCategory);
+    // Fetch immediato con i nuovi valori
+    const params = new URLSearchParams();
+    if (search) params.append("search", search);
+    if (newCategory) params.append("category", newCategory);
+    console.log("Select change - search:", search, "category:", newCategory);
+    getDestinations(params.toString());
+  };
 
   const addToCompare = (destination) => {
     if (compareList.find((item) => item.id === destination.id)) return;
@@ -47,29 +59,33 @@ export default function Homepage() {
         <h1 className="text-center m-5 text-white">
           Dove sarà il tuo prossimo viaggio?
         </h1>
-        <form
-          className="d-flex justify-content-center my-4"
-          onChange={handleSubmit}
-        >
+        <form className="d-flex justify-content-center my-4">
           <input
             className="form-control w-50"
             type="search"
-            placeholder="Città, Paese, Regione..."
+            placeholder="Cerca per Città..."
             aria-label="Search"
             value={search}
-            onChange={(e) => setSearch(e.target.value)}
+            onChange={(e) => {
+              const newSearch = e.target.value;
+              setSearch(newSearch);
+
+              handleSearchFetch(newSearch);
+            }}
           />
           <select
             className="form-select ms-2 w-25"
             aria-label="Tipo di città"
             value={category}
-            onChange={(e) => setCategory(e.target.value)}
+            onChange={(e) => {
+              handleFetch(e);
+            }}
           >
             <option value="">Tipo di città</option>
-            <option value="grande città">grande città</option>
-            <option value="città marittima">città marittima</option>
-            <option value="storica">storica</option>
-            <option value="città d'arte">città d'arte</option>
+            <option value="grande-citta">grande città</option>
+            <option value="citta-marittima">città marittima</option>
+            <option value="storica">Storica</option>
+            <option value="citta-arte">Città d'arte</option>
           </select>
         </form>
       </div>
