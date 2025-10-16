@@ -34,6 +34,11 @@ export default function Header() {
                   Wishlist
                 </NavLink>
               </li>
+              <li className="itemsNav">
+                <NavLink className="nav-link" to="/contatti">
+                  Contatti
+                </NavLink>
+              </li>
             </ul>
           </div>
         </div>
