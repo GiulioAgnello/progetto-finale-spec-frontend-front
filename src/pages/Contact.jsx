@@ -1,8 +1,20 @@
+import { useRef } from "react";
+
 export default function Contact() {
+  const nameref = useRef();
+  const emailRef = useRef();
+  const oggettoRef = useRef();
+  const messRef = useRef();
+
+  const person = {
+    name: nameref.current.value,
+    email: emailRef.current.value,
+    oggetto: oggettoRef.current.value,
+    messaggio: messRef.current.value,
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission logic here
-    console.log("Form submitted");
+    console.log(person);
   };
 
   return (
@@ -78,7 +90,7 @@ export default function Contact() {
                         <input
                           type="text"
                           id="name"
-                          name="name"
+                          ref={nameref}
                           required
                           className="form-control"
                           placeholder="Il tuo nome completo"
@@ -92,7 +104,7 @@ export default function Contact() {
                         <input
                           type="email"
                           id="email"
-                          name="email"
+                          ref={emailRef}
                           required
                           className="form-control"
                           placeholder="la.tua.email@esempio.com"
@@ -109,7 +121,7 @@ export default function Contact() {
                         <input
                           type="text"
                           id="subject"
-                          name="subject"
+                          ref={oggettoRef}
                           className="form-control"
                           placeholder="Oggetto del messaggio"
                         />
@@ -124,7 +136,7 @@ export default function Contact() {
                         </label>
                         <textarea
                           id="message"
-                          name="message"
+                          ref={messRef}
                           required
                           rows="5"
                           className="form-control"
