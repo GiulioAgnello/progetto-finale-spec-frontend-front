@@ -7,7 +7,7 @@ export default function Header() {
         <div className="container-fluid">
           <img src="logo.png" alt="Dnav-itemreamExperience" />
           <button
-            className="navbar-toggler"
+            className="navbar-toggler "
             type="button"
             data-bs-toggle="collapse"
             data-bs-target="#navbarNav"
@@ -17,8 +17,8 @@ export default function Header() {
           >
             <span className="navbar-toggler-icon"></span>
           </button>
-          <div className="collapse navbar-collapse" id="navbarNav">
-            <ul className="navbar-nav ms-auto me-5 ">
+          <div className="collapse navbar-collapse  " id="navbarNav">
+            <ul className="navbar-nav ms-auto me-5  ">
               <li className="itemsNav active -">
                 <NavLink className="nav-link " aria-current="page" to="/">
                   Home

@@ -6,14 +6,16 @@ export default function Contact() {
   const oggettoRef = useRef();
   const messRef = useRef();
 
-  const person = {
-    name: nameref.current.value,
-    email: emailRef.current.value,
-    oggetto: oggettoRef.current.value,
-    messaggio: messRef.current.value,
-  };
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    const person = {
+      name: nameref.current.value,
+      email: emailRef.current.value,
+      oggetto: oggettoRef.current.value,
+      messaggio: messRef.current.value,
+    };
+
     console.log(person);
   };
 
@@ -93,7 +95,6 @@ export default function Contact() {
                           ref={nameref}
                           required
                           className="form-control"
-                          placeholder="Il tuo nome completo"
                         />
                       </div>
 
@@ -107,7 +108,7 @@ export default function Contact() {
                           ref={emailRef}
                           required
                           className="form-control"
-                          placeholder="la.tua.email@esempio.com"
+                          placeholder="email@esempio.com"
                         />
                       </div>
 
