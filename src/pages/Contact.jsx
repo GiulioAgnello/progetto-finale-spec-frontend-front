@@ -147,7 +147,7 @@ export default function Contact() {
 
                       <button
                         type="submit"
-                        className="btn btn-primary w-100 py-2"
+                        className="buttonCompare w-100 py-2"
                       >
                         Invia Messaggio
                       </button>
