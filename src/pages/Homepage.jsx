@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTravel } from "../context/destination.context";
 import CardTravel from "../components/CardTravel";
 import ListTravelCard from "../components/ListTravelCard";
@@ -9,7 +9,6 @@ export default function Homepage() {
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("");
   const {
-    destinations,
     getDestinations,
     setDestinations,
     orderForName,
@@ -20,6 +19,11 @@ export default function Homepage() {
   const [compareList, setCompareList] = useState([]);
   const [showList, setShowList] = useState(true);
   const [showCompare, setShowCompare] = useState(false);
+  const [destinations, getnewDestination] = useState([]);
+
+  useEffect(() => {
+    getDestinations(destinations);
+  }, []);
 
   const handleSearchFetch = debounce((searchValue) => {
     // Per prendere la querystring
@@ -52,6 +56,8 @@ export default function Homepage() {
   const removeFromCompare = (id) => {
     setCompareList((prevList) => prevList.filter((item) => item.id !== id));
   };
+
+  console.log(destinations);
 
   return (
     <>
@@ -139,10 +145,10 @@ export default function Homepage() {
                     borderRadius: "10px",
                   }}
                 >
-                  {destinations.map((destination) => (
+                  {destinations.map((destination, i) => (
                     <CardTravel
                       destination={destination}
-                      key={destination.id}
+                      key={i}
                       addToCompare={addToCompare}
                     />
                   ))}

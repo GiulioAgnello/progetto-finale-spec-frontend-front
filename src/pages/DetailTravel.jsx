@@ -34,6 +34,7 @@ export default function DetailTravel() {
     addToWishlist(destination);
     setIsInWishlist(!isInWishlist);
   };
+  console.log(destination);
 
   return (
     <div className="container my-5">

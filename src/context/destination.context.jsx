@@ -5,19 +5,40 @@ const TravelContext = createContext();
 const TravelProvider = ({ children }) => {
   const [destinations, setDestinations] = useState([]);
   const [sortAsc, setSortAsc] = useState(true);
-  const getDestinations = async (query) => {
+
+  // get singolo record
+  const getobj = async (id) => {
     try {
-      const url = query
-        ? `http://localhost:3001/cities?${query
-            .replace("q=", "search=")
-            .replace("type=", "category=")}`
-        : "http://localhost:3001/cities";
-      console.log("Fetching:", url);
-      const response = await fetch(url);
-      const data = await response.json();
-      setDestinations(data);
+      const response = await fetch(`http://localhost:3001/cities/${id}`);
+      if (!response.ok) {
+        return null;
+      }
+      const obj = await response.json();
+
+      return obj.city || obj;
     } catch (error) {
-      console.error("Error fetching destinations:", error);
+      console.error(`Error fetching record ${id}:`, error);
+      return null;
+    }
+  };
+
+  // chiamata delle sestinazioni
+  const getDestinations = async () => {
+    try {
+      const promises = [];
+      for (let id = 1; id <= 56; id++) {
+        const objPromise = getobj(id);
+        promises.push(objPromise);
+      }
+
+      const results = await Promise.all(promises);
+      const cities = results.filter((city) => city !== null);
+
+      if (cities.length > 0) {
+        setDestinations(cities);
+      }
+    } catch (error) {
+      console.error("Error loading destinations:", error);
     }
   };
 
@@ -33,9 +54,13 @@ const TravelProvider = ({ children }) => {
   };
 
   function orderForName() {
-    const sorted = [...destinations].sort((a, b) =>
-      sortAsc ? a.title.localeCompare(b.title) : b.title.localeCompare(a.title)
-    );
+    const sorted = [...destinations].sort((a, b) => {
+      const titleA = a.title || a.name || "";
+      const titleB = b.title || b.name || "";
+      return sortAsc
+        ? titleA.localeCompare(titleB)
+        : titleB.localeCompare(titleA);
+    });
     setDestinations(sorted);
   }
 

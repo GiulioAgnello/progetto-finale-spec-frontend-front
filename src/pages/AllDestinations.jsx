@@ -28,6 +28,10 @@ export default function AllDestinations() {
     getDestinations(params.toString());
   }, 1000);
 
+  const cities = destinations.map((item) => {
+    return item.city || item;
+  });
+
   return (
     <>
       <div className="container">
@@ -71,9 +75,17 @@ export default function AllDestinations() {
       </div>
       <div className="container">
         <div className="row">
-          {destinations.map((destination) => (
-            <CardTravel key={destination.id} destination={destination} />
-          ))}
+          {cities.length > 0 ? (
+            cities.map((destination, i) => {
+              return (
+                <CardTravel key={destination.id} destination={destination} />
+              );
+            })
+          ) : (
+            <div className="col-12 text-center">
+              <p className="text-light">Caricamento destinazioni...</p>
+            </div>
+          )}
         </div>
       </div>
     </>
