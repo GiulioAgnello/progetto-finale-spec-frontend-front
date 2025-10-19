@@ -8,43 +8,46 @@ import { faArrowDownAZ, faArrowUpZA } from "@fortawesome/free-solid-svg-icons";
 export default function Homepage() {
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("");
-  const {
-    getDestinations,
-    setDestinations,
-    orderForName,
-    setSortAsc,
-    sortAsc,
-    debounce,
-  } = useTravel();
+  const [filteredCities, setFilteredCities] = useState([]);
+  const { getDestinations, orderForName, setSortAsc, sortAsc, cities } =
+    useTravel();
   const [compareList, setCompareList] = useState([]);
   const [showList, setShowList] = useState(true);
   const [showCompare, setShowCompare] = useState(false);
-  const [destinations, getnewDestination] = useState([]);
 
   useEffect(() => {
-    getDestinations(destinations);
+    getDestinations();
   }, []);
 
-  const handleSearchFetch = debounce((searchValue) => {
-    // Per prendere la querystring
-    const params = new URLSearchParams();
-    if (searchValue) params.append("search", searchValue);
-    if (category) params.append("category", category);
-    console.log("Search fetch - search:", searchValue, "category:", category);
-    console.log("Query string:", params.toString());
-    getDestinations(params.toString());
-  }, 500);
+  // Filtro locale per performance migliori
+  useEffect(() => {
+    let filtered = cities;
 
-  const handleFetch = (e) => {
-    const newCategory = e.target.value;
-    setCategory(newCategory);
-    // Fetch immediato con i nuovi valori
-    const params = new URLSearchParams();
-    if (search) params.append("search", search);
-    if (newCategory) params.append("category", newCategory);
-    console.log("Select change - search:", search, "category:", newCategory);
-    getDestinations(params.toString());
+    if (search) {
+      filtered = filtered.filter(
+        (city) =>
+          city.name?.toLowerCase().includes(search.toLowerCase()) ||
+          city.title?.toLowerCase().includes(search.toLowerCase())
+      );
+    }
+
+    if (category) {
+      filtered = filtered.filter((city) => city.category === category);
+    }
+
+    setFilteredCities(filtered);
+  }, [cities, search, category]);
+
+  const handleSearchChange = (e) => {
+    setSearch(e.target.value);
   };
+
+  const handleCategoryChange = (e) => {
+    setCategory(e.target.value);
+  };
+
+  const displayCities =
+    filteredCities.length > 0 || search || category ? filteredCities : cities;
 
   const addToCompare = (destination) => {
     if (compareList.find((item) => item.id === destination.id)) return;
@@ -56,8 +59,6 @@ export default function Homepage() {
   const removeFromCompare = (id) => {
     setCompareList((prevList) => prevList.filter((item) => item.id !== id));
   };
-
-  console.log(destinations);
 
   return (
     <>
@@ -72,20 +73,13 @@ export default function Homepage() {
             placeholder="Cerca per Città..."
             aria-label="Search"
             value={search}
-            onChange={(e) => {
-              const newSearch = e.target.value;
-              setSearch(newSearch);
-
-              handleSearchFetch(newSearch);
-            }}
+            onChange={handleSearchChange}
           />
           <select
             className="form-select ms-2 w-25"
             aria-label="Tipo di città"
             value={category}
-            onChange={(e) => {
-              handleFetch(e);
-            }}
+            onChange={handleCategoryChange}
           >
             <option value="">Tipo di città</option>
             <option value="grande-citta">grande città</option>
@@ -95,7 +89,7 @@ export default function Homepage() {
           </select>
         </form>
       </div>
-      {destinations.length > 0 && (
+      {cities.length > 0 && (
         <div className="container">
           <div className="d-flex justify-content-center my-4">
             <div
@@ -145,7 +139,7 @@ export default function Homepage() {
                     borderRadius: "10px",
                   }}
                 >
-                  {destinations.map((destination, i) => (
+                  {displayCities.map((destination, i) => (
                     <CardTravel
                       destination={destination}
                       key={i}
@@ -166,7 +160,7 @@ export default function Homepage() {
                       borderRadius: "10px",
                     }}
                   >
-                    {destinations.map((destination) => (
+                    {displayCities.map((destination) => (
                       <CardTravel
                         destination={destination}
                         key={destination.id}

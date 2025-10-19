@@ -6,7 +6,7 @@ import { faArrowDownAZ, faArrowUpZA } from "@fortawesome/free-solid-svg-icons";
 
 export default function AllDestinations() {
   const {
-    destinations,
+    cities,
     getDestinations,
     orderForName,
     setSortAsc,
@@ -27,10 +27,6 @@ export default function AllDestinations() {
     if (searchValue) params.append("search", searchValue);
     getDestinations(params.toString());
   }, 1000);
-
-  const cities = destinations.map((item) => {
-    return item.city || item;
-  });
 
   return (
     <>

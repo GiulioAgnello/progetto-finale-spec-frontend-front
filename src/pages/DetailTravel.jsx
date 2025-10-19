@@ -19,7 +19,7 @@ export default function DetailTravel() {
       console.log("Fetching:", url);
       const response = await fetch(url);
       const data = await response.json();
-      console.log(data.city);
+
       const cityData = data.city;
       setDestinations(cityData);
       console.log(cityData);

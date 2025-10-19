@@ -14,7 +14,6 @@ const TravelProvider = ({ children }) => {
         return null;
       }
       const obj = await response.json();
-
       return obj.city || obj;
     } catch (error) {
       console.error(`Error fetching record ${id}:`, error);
@@ -22,9 +21,23 @@ const TravelProvider = ({ children }) => {
     }
   };
 
-  // chiamata delle sestinazioni
-  const getDestinations = async () => {
+  // chiamata delle destinazioni con supporto per query parameters
+  const getDestinations = async (queryString = "") => {
     try {
+      let url = "http://localhost:3001/cities";
+      if (queryString) {
+        url += `?${queryString}`;
+        // Per query con parametri, usa l'endpoint diretto
+        const response = await fetch(url);
+        if (response.ok) {
+          const data = await response.json();
+          const cities = Array.isArray(data) ? data : [data];
+          setDestinations(cities.map((item) => item.city || item));
+          return;
+        }
+      }
+
+      // carica tutte le destinazioni individualmente
       const promises = [];
       for (let id = 1; id <= 56; id++) {
         const objPromise = getobj(id);
@@ -41,6 +54,10 @@ const TravelProvider = ({ children }) => {
       console.error("Error loading destinations:", error);
     }
   };
+
+  const cities = destinations.map((item) => {
+    return item.city || item;
+  });
 
   const addToWishlist = (destination) => {
     let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
@@ -77,7 +94,7 @@ const TravelProvider = ({ children }) => {
   return (
     <TravelContext.Provider
       value={{
-        destinations,
+        cities,
         setDestinations,
         getDestinations,
         addToWishlist,
