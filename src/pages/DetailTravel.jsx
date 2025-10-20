@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import { useTravel } from "../context/destination.context";
 import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import { faHeart, faCalendarAlt } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as faHeartEmpty } from "@fortawesome/free-regular-svg-icons";
 import "flag-icons/css/flag-icons.min.css";
 
@@ -115,7 +115,18 @@ export default function DetailTravel() {
                       </h3>
                     </div>
                   )}
-
+                  {destination.bestSeason && (
+                    <div className="mb-3">
+                      <h3 className="text-light fs-5">
+                        <FontAwesomeIcon
+                          icon={faCalendarAlt}
+                          className="me-2"
+                        />
+                        Miglior periodo per visitare: {destination.bestSeason}
+                      </h3>
+                    </div>
+                  )}
+                  <hr />
                   {destination.description && (
                     <div className="mb-4">
                       <h5 className="mb-2">Descrizione</h5>

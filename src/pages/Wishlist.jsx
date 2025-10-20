@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
-
-import CardTravel from "../components/CardTravel";
+import WishListItems from "../components/WishListItems";
 
 export default function Wishlist() {
   const [wishlist, setWishlist] = useState([]);
@@ -16,6 +15,12 @@ export default function Wishlist() {
     return () => window.removeEventListener("click", updateWishlist);
   }, []);
 
+  const removeFromWishlist = (id) => {
+    const updatedWishlist = wishlist.filter((item) => item.id !== id);
+    setWishlist(updatedWishlist);
+    localStorage.setItem("wishlist", JSON.stringify(updatedWishlist));
+  };
+
   return (
     <>
       <div className="container">
@@ -23,15 +28,21 @@ export default function Wishlist() {
           <h1 className="wishTitle">Wishlist</h1>
           <ul>
             <div className="row">
-              {wishlist.length > 0 ? (
-                wishlist.map((item) => (
-                  <CardTravel key={item.id} destination={item} />
-                ))
-              ) : (
-                <p className="text-center text-light fs-2">
-                  Nessuna destinazione in wishlist!
-                </p>
-              )}
+              <ul>
+                {wishlist.length > 0 ? (
+                  wishlist.map((item) => (
+                    <WishListItems
+                      key={item.id}
+                      destination={item}
+                      removeFromWishlist={removeFromWishlist}
+                    />
+                  ))
+                ) : (
+                  <p className="text-center text-light fs-2">
+                    Nessuna destinazione in wishlist!
+                  </p>
+                )}
+              </ul>
             </div>
           </ul>
         </div>
