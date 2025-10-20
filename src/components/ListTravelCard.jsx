@@ -1,53 +1,65 @@
 import { useTravel } from "../context/destination.context";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router-dom";
 
 export default function ListTravelCard({ destination, removeFromCompare }) {
   const { addToWishlist } = useTravel();
+  const navigate = useNavigate();
 
   return (
-    <li className="cardListCompare list-group-item mb-3 p-3  shadow-sm">
-      <div className="d-flex justify-content-between align-items-center mb-2">
-        <div>
-          <h6 className="fw-bold mb-0 text-white">{destination.title}</h6>
-          <small className="text-light">{destination.country}</small>
-        </div>
+    <tr>
+      <td>
+        <strong
+          onClick={() => navigate(`/${destination.id}`)}
+          style={{ cursor: "pointer" }}
+        >
+          {destination.title}
+        </strong>
+        <br />
+        <small className="text-light">{destination.country}</small>
+      </td>
+      <td>
+        <span
+          className={
+            destination.placeAvalable >= 10 ? "text-success" : "text-danger"
+          }
+        >
+          {destination.placeAvalable || "N/A"}
+        </span>
+        {destination.placeAvalable < 10 && (
+          <>
+            <br />
+            <small className="text-warning">Ultimi posti!</small>
+          </>
+        )}
+      </td>
+      <td>{destination.departure || "Da definire"}</td>
+      <td>
+        <strong className="text-light">€{destination.price || "N/A"}</strong>
         {destination.price && (
-          <span className="fw-bold text-primary">€{destination.price}</span>
+          <>
+            <br />
+            <small className="text-light">/persona</small>
+          </>
         )}
-      </div>
-
-      <div className="mb-3">
-        {destination.costLevel && (
-          <span
-            className={`badge ${
-              destination.costLevel.toLowerCase() === "economica"
-                ? "bg-success"
-                : destination.costLevel.toLowerCase() === "media"
-                ? "bg-warning text-dark"
-                : "bg-danger"
-            }`}
+      </td>
+      <td>
+        <div className="d-flex gap-2">
+          <button
+            className="btn btn-outline-light btn-sm"
+            onClick={() => addToWishlist(destination)}
           >
-            Costo: {destination.costLevel}
-          </span>
-        )}
-      </div>
-
-      <div className="d-flex gap-2">
-        <div
-          className="buttonwishlist"
-          onClick={() => addToWishlist(destination)}
-        >
-          <FontAwesomeIcon icon={faHeart} className="me-1" />
+            <FontAwesomeIcon icon={faHeart} />
+          </button>
+          <button
+            onClick={() => removeFromCompare(destination.id)}
+            className="btn btn-outline-danger btn-sm"
+          >
+            <FontAwesomeIcon icon={faTrash} />
+          </button>
         </div>
-        <button
-          onClick={() => removeFromCompare(destination.id)}
-          className="btn btn-outline-danger btn-sm flex-fill"
-        >
-          <FontAwesomeIcon icon={faTrash} className="me-1" />
-          Rimuovi
-        </button>
-      </div>
-    </li>
+      </td>
+    </tr>
   );
 }

@@ -8,8 +8,16 @@ import { useState, useEffect } from "react";
 
 // CARD
 export default function CardTravel({ destination, addToCompare }) {
-  const { title, image, country, flag, bestSeason, costLevel, price } =
-    destination;
+  const {
+    title,
+    image,
+    country,
+    flag,
+    bestSeason,
+    costLevel,
+    price,
+    departure,
+  } = destination;
 
   const { addToWishlist } = useTravel();
   const navigate = useNavigate();
@@ -74,9 +82,7 @@ export default function CardTravel({ destination, addToCompare }) {
           </p>
           <hr />
           {bestSeason && (
-            <span className="fw-bold mb-2">
-              Stagione migliore: {bestSeason}
-            </span>
+            <span className="fw-bold mb-2">Partenza: {departure}</span>
           )}
           <hr />
           {costBadge}

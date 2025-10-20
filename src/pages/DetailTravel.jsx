@@ -36,6 +36,25 @@ export default function DetailTravel() {
   };
   console.log(destination);
 
+  const availabilityInfo = () => {
+    const places = destination.placeAvalable;
+    if (places > 10) {
+      return {
+        color:
+          "text-success bg-light rounded-circle d-inline-flex align-items-center justify-content-center",
+        style: { width: "40px", height: "40px", fontSize: "16px" },
+        message: "",
+      };
+    } else {
+      return {
+        color:
+          "text-danger bg-warning rounded-circle d-inline-flex align-items-center justify-content-center",
+        style: { width: "40px", height: "40px", fontSize: "25px" },
+        message: " Ultimi posti disponibili!",
+      };
+    }
+  };
+
   return (
     <div className="container my-5">
       <div className="row justify-content-center">
@@ -71,20 +90,14 @@ export default function DetailTravel() {
                   </div>
 
                   <div className="mb-3">
-                    {destination.bestSeason && (
-                      <span className="badge bg-info text-dark me-2 fs-6">
-                        <i className="bi bi-calendar-event me-1"></i>
-                        Stagione migliore: {destination.bestSeason}
-                      </span>
-                    )}
                     {destination.costLevel && (
                       <span
                         className={`badge fs-6 ${
                           destination.costLevel.toLowerCase() === "economica"
                             ? "bg-success"
                             : destination.costLevel.toLowerCase() === "media"
-                            ? "bg-warning text-dark"
-                            : "bg-danger"
+                            ? "d-none"
+                            : "d-none"
                         }`}
                       >
                         <i className="bi bi-currency-euro me-1"></i>
@@ -111,7 +124,20 @@ export default function DetailTravel() {
                       </p>
                     </div>
                   )}
-
+                  {destination.placeAvalable && (
+                    <div className="fs-4 mb-3 d-flex align-items-center">
+                      <span className="me-2">Posti:</span>
+                      <span
+                        className={availabilityInfo().color}
+                        style={availabilityInfo().style}
+                      >
+                        {destination.placeAvalable}
+                      </span>
+                      <span className="text-danger ms-2 fs-6">
+                        {availabilityInfo().message}
+                      </span>
+                    </div>
+                  )}
                   <div className="d-grid gap-2 d-md-flex justify-content-md-start">
                     <button className="buttonCompare" type="button">
                       <i className="bi bi-heart-fill  "></i>
@@ -127,6 +153,8 @@ export default function DetailTravel() {
                         icon={isInWishlist ? faHeart : faHeartEmpty}
                       />
                     </div>
+                    Partenza:
+                    <span>{destination.departure}</span>
                   </div>
                 </div>
               </div>

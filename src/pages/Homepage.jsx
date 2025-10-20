@@ -6,28 +6,33 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowDownAZ, faArrowUpZA } from "@fortawesome/free-solid-svg-icons";
 
 export default function Homepage() {
+  const {
+    getDestinations,
+    orderForName,
+    setSortAsc,
+    sortAsc,
+    cities,
+    debounce,
+  } = useTravel();
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("");
   const [filteredCities, setFilteredCities] = useState([]);
-  const { getDestinations, orderForName, setSortAsc, sortAsc, cities } =
-    useTravel();
   const [compareList, setCompareList] = useState([]);
   const [showList, setShowList] = useState(true);
   const [showCompare, setShowCompare] = useState(false);
 
+  // prende le destinazioni iniziali
   useEffect(() => {
     getDestinations();
   }, []);
 
-  // Filtro locale per performance migliori
+  // Filtro locale per performance migliori in base a se c'è title o category
   useEffect(() => {
     let filtered = cities;
 
     if (search) {
-      filtered = filtered.filter(
-        (city) =>
-          city.name?.toLowerCase().includes(search.toLowerCase()) ||
-          city.title?.toLowerCase().includes(search.toLowerCase())
+      filtered = filtered.filter((city) =>
+        city.title?.toLowerCase().includes(search.toLowerCase())
       );
     }
 
@@ -46,11 +51,14 @@ export default function Homepage() {
     setCategory(e.target.value);
   };
 
+  // toggle se ci sono filtri
   const displayCities =
     filteredCities.length > 0 || search || category ? filteredCities : cities;
 
+  // comparatore e wishlist
   const addToCompare = (destination) => {
     if (compareList.find((item) => item.id === destination.id)) return;
+
     setCompareList((prevList) => [...prevList, destination]);
     // Passa alla vista comparatore quando aggiungi un elemento
     setShowList(false);
@@ -59,7 +67,7 @@ export default function Homepage() {
   const removeFromCompare = (id) => {
     setCompareList((prevList) => prevList.filter((item) => item.id !== id));
   };
-
+  // fine comparatore e wishlist
   return (
     <>
       <div className="container">
@@ -95,20 +103,17 @@ export default function Homepage() {
             <div
               className="setListOrCompare"
               onClick={() => {
-                setShowList(true);
-                setShowCompare(false);
+                if (showList) {
+                  setShowList(false);
+                  setShowCompare(true);
+                } else {
+                  setShowList(true);
+                  setShowCompare(false);
+                }
               }}
             >
-              Destinazioni
-            </div>
-            <div
-              className="setListOrCompare"
-              onClick={() => {
-                setShowList(false);
-                setShowCompare(true);
-              }}
-            >
-              Comparatore
+              Comparatore{" "}
+              {compareList.length > 0 ? `(${compareList.length})` : ""}
             </div>
           </div>
           <div
@@ -128,9 +133,48 @@ export default function Homepage() {
             )}
           </div>
           <div className="row">
-            {!showCompare ? (
-              <div className="col-12">
-                <h3 className="destinazioni">Destinazioni</h3>
+            {showCompare ? (
+              <div className="col-12  mt-4 mb-2">
+                <h3 className="destinazioni mb-3">Comparatore Destinazioni</h3>
+                <div
+                  className="overflow-scroll p-2 mx-2"
+                  style={{
+                    maxHeight: "30vh",
+                    scrollbarWidth: "none",
+                    borderRadius: "10px",
+                  }}
+                >
+                  {compareList.length > 0 ? (
+                    <table className="table table-dark table-striped table-hover">
+                      <thead>
+                        <tr>
+                          <th scope="col">Posto</th>
+                          <th scope="col">Posti Disponibili</th>
+                          <th scope="col">Partenza</th>
+                          <th scope="col">Costo</th>
+                          <th scope="col"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {compareList.map((destination) => (
+                          <ListTravelCard
+                            destination={destination}
+                            key={destination.id}
+                            removeFromCompare={removeFromCompare}
+                          />
+                        ))}
+                      </tbody>
+                    </table>
+                  ) : (
+                    <p className="text-center text-light mt-4">
+                      Seleziona almeno una destinazione da comparare...
+                    </p>
+                  )}
+                </div>
+              </div>
+            ) : null}
+            <div className="row">
+              <div className="col-12 mt-4 mb-2">
                 <div
                   className="row overflow-scroll p-2 mx-2"
                   style={{
@@ -148,56 +192,7 @@ export default function Homepage() {
                   ))}
                 </div>
               </div>
-            ) : (
-              <>
-                <div className="col-9">
-                  <h3 className="destinazioni">Destinazioni</h3>
-                  <div
-                    className="row overflow-scroll p-2 mx-2"
-                    style={{
-                      maxHeight: "80vh",
-                      scrollbarWidth: "none",
-                      borderRadius: "10px",
-                    }}
-                  >
-                    {displayCities.map((destination) => (
-                      <CardTravel
-                        destination={destination}
-                        key={destination.id}
-                        addToCompare={addToCompare}
-                      />
-                    ))}
-                  </div>
-                </div>
-                <div className="col-3">
-                  <h3 className="destinazioni">Compara</h3>
-                  <div
-                    className="row overflow-scroll p-2 mx-2"
-                    style={{
-                      maxHeight: "80vh",
-                      scrollbarWidth: "none",
-                      borderRadius: "10px",
-                    }}
-                  >
-                    {compareList.length > 0 ? (
-                      <ul className="list-group">
-                        {compareList.map((destination) => (
-                          <ListTravelCard
-                            destination={destination}
-                            key={destination.id}
-                            removeFromCompare={removeFromCompare}
-                          />
-                        ))}
-                      </ul>
-                    ) : (
-                      <p className="text-center text-light mt-4">
-                        Seleziona almeno una destinazione da comparare...
-                      </p>
-                    )}
-                  </div>
-                </div>
-              </>
-            )}
+            </div>
           </div>
         </div>
       )}
