@@ -76,7 +76,7 @@ export default function Cart() {
         <div className="row">
           <div className="col-lg-8">
             <div className="table-responsive">
-              <table className="table table-dark table-striped">
+              <table className="table table-dark table-striped ">
                 <thead>
                   <tr>
                     <th scope="col">Destinazione</th>
