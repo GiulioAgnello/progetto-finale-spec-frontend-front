@@ -1,5 +1,5 @@
 import { useTravel } from "../context/destination.context";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useMemo } from "react";
 import CardTravel from "../components/CardTravel";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowDownAZ, faArrowUpZA } from "@fortawesome/free-solid-svg-icons";
@@ -13,6 +13,7 @@ export default function AllDestinations() {
     sortAsc,
     debounce,
   } = useTravel();
+
   const searchInputRef = useRef(null);
 
   useEffect(() => {
@@ -20,13 +21,20 @@ export default function AllDestinations() {
     getDestinations();
   }, []);
 
-  const handleSearch = debounce((e) => {
-    e.preventDefault();
-    const params = new URLSearchParams();
-    const searchValue = searchInputRef.current.value;
-    if (searchValue) params.append("search", searchValue);
-    getDestinations(params.toString());
-  }, 1000);
+  // Crea la funzione debounced per il filtro
+  const debouncedSearch = useMemo(
+    () =>
+      debounce(() => {
+        const searchTerm = searchInputRef.current.value;
+
+        getDestinations(searchTerm);
+      }, 500),
+    [debounce]
+  );
+
+  const handleSearchChange = () => {
+    debouncedSearch();
+  };
 
   return (
     <>
@@ -36,13 +44,14 @@ export default function AllDestinations() {
         </h1>
         <div className="row d-flex align-items-center mb-4">
           <div className="col-6">
-            <form onChange={handleSearch}>
+            <form>
               <input
                 className="form-control"
                 type="text"
                 placeholder="Cerca una destinazione..."
                 id="search"
                 ref={searchInputRef}
+                onChange={handleSearchChange}
               />
             </form>
           </div>
@@ -72,14 +81,25 @@ export default function AllDestinations() {
       <div className="container">
         <div className="row">
           {cities.length > 0 ? (
-            cities.map((destination, i) => {
-              return (
-                <CardTravel key={destination.id} destination={destination} />
-              );
-            })
+            cities
+              .filter((city) => {
+                const searchTerm = searchInputRef.current?.value || "";
+                return searchTerm
+                  ? city.title?.toLowerCase().includes(searchTerm.toLowerCase())
+                  : true;
+              })
+              .map((destination, i) => {
+                return (
+                  <CardTravel key={destination.id} destination={destination} />
+                );
+              })
           ) : (
             <div className="col-12 text-center">
-              <p className="text-light">Caricamento destinazioni...</p>
+              <p className="text-light">
+                {cities.length === 0
+                  ? "Caricamento destinazioni..."
+                  : "Nessuna destinazione trovata"}
+              </p>
             </div>
           )}
         </div>

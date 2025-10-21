@@ -1,10 +1,16 @@
 import { useNavigate } from "react-router-dom";
+import { useTravel } from "../context/destination.context";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye, faTrash } from "@fortawesome/free-solid-svg-icons";
+import {
+  faEye,
+  faTrash,
+  faCartShopping,
+} from "@fortawesome/free-solid-svg-icons";
 
 export default function WishListItems({ destination, removeFromWishlist }) {
   const { title, placeAvalable, price, departure, flag } = destination;
   const navigate = useNavigate();
+  const { addToCart } = useTravel();
 
   const handleRemove = () => {
     removeFromWishlist(destination.id);
@@ -12,6 +18,11 @@ export default function WishListItems({ destination, removeFromWishlist }) {
 
   const handleNavigate = () => {
     navigate(`/${destination.id}`);
+  };
+
+  const handleAddToCart = () => {
+    addToCart(destination);
+    removeFromWishlist(destination.id);
   };
 
   return (
@@ -40,6 +51,9 @@ export default function WishListItems({ destination, removeFromWishlist }) {
         </div>
         <div className="col-md-4 text-end">
           <div className="d-flex gap-2 justify-content-end">
+            <button className="buttonCart" onClick={handleAddToCart}>
+              <FontAwesomeIcon icon={faCartShopping} />
+            </button>
             <button onClick={handleNavigate} className="buttonDetail">
               <FontAwesomeIcon icon={faEye} className="me-1" />
               Dettagli

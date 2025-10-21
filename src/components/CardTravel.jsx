@@ -2,13 +2,14 @@ import "flag-icons/css/flag-icons.min.css";
 import { useNavigate } from "react-router-dom";
 import { useTravel } from "../context/destination.context";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import { faHeart, faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as faHeartEmpty } from "@fortawesome/free-regular-svg-icons";
 import { useState, useEffect } from "react";
 
 // CARD
 export default function CardTravel({ destination, addToCompare }) {
   const {
+    id,
     title,
     image,
     country,
@@ -19,7 +20,7 @@ export default function CardTravel({ destination, addToCompare }) {
     departure,
   } = destination;
 
-  const { addToWishlist } = useTravel();
+  const { addToWishlist, addToCart } = useTravel();
   const navigate = useNavigate();
   const [isInWishlist, setIsInWishlist] = useState(false);
 
@@ -53,6 +54,10 @@ export default function CardTravel({ destination, addToCompare }) {
       <span className={`badge ${badgeClass} ms-2 mb-2`}>Costo: {label}</span>
     );
   }
+
+  const handleAddToCart = () => {
+    addToCart(destination);
+  };
 
   return (
     <div className="col-md-4 mb-4" key={destination.id}>
@@ -111,6 +116,9 @@ export default function CardTravel({ destination, addToCompare }) {
             >
               <FontAwesomeIcon icon={isInWishlist ? faHeart : faHeartEmpty} />
             </div>
+            <button onClick={handleAddToCart} className={"buttonCart"}>
+              <FontAwesomeIcon icon={faCartShopping} />
+            </button>
           </div>
         </div>
       </div>

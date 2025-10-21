@@ -29,7 +29,7 @@ const TravelProvider = ({ children }) => {
     try {
       const promises = [];
       for (let id = 1; id <= 56; id++) {
-        const objPromise = getobj(id);
+        const objPromise = getobj(id, query);
         promises.push(objPromise);
       }
 
@@ -47,7 +47,6 @@ const TravelProvider = ({ children }) => {
   const cities = destinations.map((item) => {
     return item;
   });
-  console.log(cities);
 
   const addToWishlist = (destination) => {
     let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
@@ -81,6 +80,22 @@ const TravelProvider = ({ children }) => {
     };
   }
 
+  const addToCart = (destination, quantity = 1) => {
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const existingItem = cart.find((item) => item.id === destination.id);
+
+    if (existingItem) {
+      existingItem.quantity += quantity;
+    } else {
+      cart.push({ ...destination, quantity });
+    }
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+
+    // Notifica l'aggiornamento del carrello
+    window.dispatchEvent(new Event("cartUpdated"));
+  };
+
   return (
     <TravelContext.Provider
       value={{
@@ -88,6 +103,7 @@ const TravelProvider = ({ children }) => {
         setDestinations,
         getDestinations,
         addToWishlist,
+        addToCart,
         orderForName,
         sortAsc,
         setSortAsc,

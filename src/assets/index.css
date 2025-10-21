@@ -216,3 +216,20 @@ footer {
   border: none;
   transition: transform 0.3s ease;
 }
+
+.buttonCart {
+  background-color: transparent;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  font-size: 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+.buttonCart:hover {
+  background-color: transparent;
+  color: #ef7833;
+  border: none;
+  transition: 0.4s;
+}
