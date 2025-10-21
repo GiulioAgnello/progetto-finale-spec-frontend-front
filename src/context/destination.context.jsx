@@ -7,14 +7,17 @@ const TravelProvider = ({ children }) => {
   const [sortAsc, setSortAsc] = useState(true);
 
   // get singolo record
-  const getobj = async (id) => {
+  const getobj = async (id, query) => {
     try {
+      if (query) {
+        id += `?${query}`;
+      }
       const response = await fetch(`http://localhost:3001/cities/${id}`);
       if (!response.ok) {
         return null;
       }
       const obj = await response.json();
-      return obj.city || obj;
+      return obj.city;
     } catch (error) {
       console.error(`Error fetching record ${id}:`, error);
       return null;
@@ -22,22 +25,8 @@ const TravelProvider = ({ children }) => {
   };
 
   // chiamata delle destinazioni con supporto per query parameters
-  const getDestinations = async (queryString = "") => {
+  const getDestinations = async (query = "") => {
     try {
-      let url = "http://localhost:3001/cities";
-      if (queryString) {
-        url += `?${queryString}`;
-        // Per query con parametri, usa l'endpoint diretto
-        const response = await fetch(url);
-        if (response.ok) {
-          const data = await response.json();
-          const cities = Array.isArray(data) ? data : [data];
-          setDestinations(cities.map((item) => item.city || item));
-          return;
-        }
-      }
-
-      // carica tutte le destinazioni individualmente
       const promises = [];
       for (let id = 1; id <= 56; id++) {
         const objPromise = getobj(id);
@@ -56,8 +45,9 @@ const TravelProvider = ({ children }) => {
   };
 
   const cities = destinations.map((item) => {
-    return item.city || item;
+    return item;
   });
+  console.log(cities);
 
   const addToWishlist = (destination) => {
     let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
@@ -72,8 +62,8 @@ const TravelProvider = ({ children }) => {
 
   function orderForName() {
     const sorted = [...destinations].sort((a, b) => {
-      const titleA = a.title || a.name || "";
-      const titleB = b.title || b.name || "";
+      const titleA = a.title;
+      const titleB = b.title;
       return sortAsc
         ? titleA.localeCompare(titleB)
         : titleB.localeCompare(titleA);

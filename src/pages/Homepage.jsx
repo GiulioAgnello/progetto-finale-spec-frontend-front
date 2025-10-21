@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback, useMemo } from "react";
 import { useTravel } from "../context/destination.context";
 import CardTravel from "../components/CardTravel";
 import ListTravelCard from "../components/ListTravelCard";
@@ -20,6 +20,7 @@ export default function Homepage() {
   const [compareList, setCompareList] = useState([]);
   const [showList, setShowList] = useState(true);
   const [showCompare, setShowCompare] = useState(false);
+  const [inputValue, setInputValue] = useState("");
 
   // prende le destinazioni iniziali
   useEffect(() => {
@@ -43,14 +44,21 @@ export default function Homepage() {
     setFilteredCities(filtered);
   }, [cities, search, category]);
 
+  // funzione per il debounce
+  const debouncedSetSearch = useMemo(
+    () => debounce((value) => setSearch(value), 500),
+    [debounce]
+  );
+
   const handleSearchChange = (e) => {
-    setSearch(e.target.value);
+    const value = e.target.value;
+    setInputValue(value);
+    debouncedSetSearch(value);
   };
 
   const handleCategoryChange = (e) => {
     setCategory(e.target.value);
   };
-
   // toggle se ci sono filtri
   const displayCities =
     filteredCities.length > 0 || search || category ? filteredCities : cities;
@@ -80,7 +88,7 @@ export default function Homepage() {
             type="search"
             placeholder="Cerca per Città..."
             aria-label="Search"
-            value={search}
+            value={inputValue}
             onChange={handleSearchChange}
           />
           <select
