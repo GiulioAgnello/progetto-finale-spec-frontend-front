@@ -70,7 +70,7 @@ export default function CardTravel({ destination, addToCompare }) {
           style={{ cursor: "pointer", height: "200px", objectFit: "cover" }}
         />
         <div className="card-body">
-          <div className="d-flex align-items-center mb-2">
+          <div className="d-flex align-items-center mb-2 gap-2">
             {flag && typeof flag === "string" && (
               <span className={`fi fi-${flag.toLowerCase()}`}></span>
             )}

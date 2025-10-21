@@ -25,7 +25,7 @@ const TravelProvider = ({ children }) => {
   };
 
   // chiamata delle destinazioni con supporto per query parameters
-  const getDestinations = async (query = "") => {
+  const getDestinations = async (id, query = "") => {
     try {
       const promises = [];
       for (let id = 1; id <= 56; id++) {

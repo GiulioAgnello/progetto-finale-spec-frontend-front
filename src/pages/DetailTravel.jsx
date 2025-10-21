@@ -22,7 +22,6 @@ export default function DetailTravel() {
 
       const cityData = data.city;
       setDestinations(cityData);
-      console.log(cityData);
     } catch (error) {
       console.error("Error fetching destinations:", error);
     }
