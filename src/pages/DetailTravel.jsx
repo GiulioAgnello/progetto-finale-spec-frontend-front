@@ -2,13 +2,17 @@ import { useParams } from "react-router-dom";
 import { useTravel } from "../context/destination.context";
 import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart, faCalendarAlt } from "@fortawesome/free-solid-svg-icons";
+import {
+  faHeart,
+  faCalendarAlt,
+  faCartShopping,
+} from "@fortawesome/free-solid-svg-icons";
 import { faHeart as faHeartEmpty } from "@fortawesome/free-regular-svg-icons";
 import "flag-icons/css/flag-icons.min.css";
 
 export default function DetailTravel() {
   const { id } = useParams();
-  const { addToWishlist } = useTravel();
+  const { addToWishlist, addToCart } = useTravel();
   const [destination, setDestinations] = useState({});
   const [isInWishlist, setIsInWishlist] = useState(false);
 
@@ -54,6 +58,9 @@ export default function DetailTravel() {
     }
   };
 
+  const handleAddToCart = () => {
+    addToCart(destination);
+  };
   return (
     <div className="container my-5">
       <div className="row justify-content-center">
@@ -149,9 +156,8 @@ export default function DetailTravel() {
                     </div>
                   )}
                   <div className="d-grid gap-2 d-md-flex justify-content-md-start">
-                    <button className="buttonCompare" type="button">
-                      <i className="bi bi-heart-fill  "></i>
-                      Acquista
+                    <button onClick={handleAddToCart} className={"buttonCart"}>
+                      <FontAwesomeIcon icon={faCartShopping} />
                     </button>
                     <div
                       onClick={handleWishlistClick}

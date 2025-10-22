@@ -68,7 +68,7 @@ export default function Homepage() {
     if (compareList.find((item) => item.id === destination.id)) return;
 
     setCompareList((prevList) => [...prevList, destination]);
-    // Passa alla vista comparatore quando aggiungi un elemento
+    // Passa alla vista comparatore
     setShowList(false);
     setShowCompare(true);
   };
