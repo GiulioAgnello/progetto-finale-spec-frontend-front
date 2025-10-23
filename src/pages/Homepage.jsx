@@ -75,11 +75,13 @@ export default function Homepage() {
     // Passa alla vista comparatore
     setShowList(false);
     setShowCompare(true);
+    console.log(compareList);
   };
-  const removeFromCompare = (id) => {
+  const removeFromCompare = useCallback((id) => {
     setCompareList((prevList) => prevList.filter((item) => item.id !== id));
-  };
+  }, []);
   // fine comparatore e wishlist
+
   return (
     <>
       <div className="container">

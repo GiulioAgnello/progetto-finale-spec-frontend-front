@@ -2,8 +2,12 @@ import { useTravel } from "../context/destination.context";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
+import { memo } from "react";
 
-export default function ListTravelCard({ destination, removeFromCompare }) {
+export default memo(function ListTravelCard({
+  destination,
+  removeFromCompare,
+}) {
   const { addToWishlist } = useTravel();
   const navigate = useNavigate();
 
@@ -62,4 +66,4 @@ export default function ListTravelCard({ destination, removeFromCompare }) {
       </td>
     </tr>
   );
-}
+});

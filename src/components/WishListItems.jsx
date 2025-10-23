@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+
 import { useTravel } from "../context/destination.context";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -6,8 +7,12 @@ import {
   faTrash,
   faCartShopping,
 } from "@fortawesome/free-solid-svg-icons";
+import { memo } from "react";
 
-export default function WishListItems({ destination, removeFromWishlist }) {
+export default memo(function WishListItems({
+  destination,
+  removeFromWishlist,
+}) {
   const { title, placeAvalable, price, departure, flag } = destination;
   const navigate = useNavigate();
   const { addToCart } = useTravel();
@@ -69,4 +74,4 @@ export default function WishListItems({ destination, removeFromWishlist }) {
       </div>
     </div>
   );
-}
+});

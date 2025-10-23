@@ -24,7 +24,7 @@ const TravelProvider = ({ children }) => {
     }
   };
 
-  // chiamata delle destinazioni con supporto per query parameters
+  // chiamata delle destinazioni con supporto per query
   const getDestinations = async (id, query = "") => {
     try {
       const promises = [];
@@ -48,6 +48,7 @@ const TravelProvider = ({ children }) => {
     return item;
   });
 
+  // localStorage per wishlist
   const addToWishlist = (destination) => {
     let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
     const exists = wishlist.find((item) => item.id === destination.id);
@@ -59,6 +60,7 @@ const TravelProvider = ({ children }) => {
     localStorage.setItem("wishlist", JSON.stringify(wishlist));
   };
 
+  // ordine per alfabetico
   function orderForName() {
     const sorted = [...destinations].sort((a, b) => {
       const titleA = a.title;
@@ -70,6 +72,7 @@ const TravelProvider = ({ children }) => {
     setDestinations(sorted);
   }
 
+  // funzione di debounce
   function debounce(callback, delay) {
     let timer;
     return (value) => {
@@ -80,6 +83,7 @@ const TravelProvider = ({ children }) => {
     };
   }
 
+  // localStorage per cart
   const addToCart = (destination, quantity = 1) => {
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
     const existingItem = cart.find((item) => item.id === destination.id);
