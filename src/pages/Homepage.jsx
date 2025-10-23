@@ -3,7 +3,11 @@ import { useTravel } from "../context/destination.context";
 import CardTravel from "../components/CardTravel";
 import ListTravelCard from "../components/ListTravelCard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowDownAZ, faArrowUpZA } from "@fortawesome/free-solid-svg-icons";
+import {
+  faArrowDownAZ,
+  faArrowUpZA,
+  faQuestion,
+} from "@fortawesome/free-solid-svg-icons";
 
 export default function Homepage() {
   const {
@@ -80,7 +84,8 @@ export default function Homepage() {
     <>
       <div className="container">
         <h1 className="text-center m-5 text-white">
-          Dove sarà il tuo prossimo viaggio?
+          Dove sarà il tuo prossimo viaggio
+          <FontAwesomeIcon icon={faQuestion} bounce />
         </h1>
         <form className="d-flex justify-content-center my-4">
           <input

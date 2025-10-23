@@ -34,10 +34,10 @@ const TravelProvider = ({ children }) => {
       }
 
       const results = await Promise.all(promises);
-      const cities = results.filter((city) => city !== null);
+      const resultsChecked = results.filter((city) => city !== null);
 
-      if (cities.length > 0) {
-        setDestinations(cities);
+      if (resultsChecked.length > 0) {
+        setDestinations(resultsChecked);
       }
     } catch (error) {
       console.error("Error loading destinations:", error);

@@ -1,6 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash, faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
+import {
+  faTrash,
+  faPlus,
+  faMinus,
+  faPlane,
+} from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 
 export default function Cart() {
@@ -39,13 +44,17 @@ export default function Cart() {
       )
     );
   };
+  // calcolo del totale dei viaggiatori
+  const totalTravellers = useMemo(() => {
+    return cartItems.reduce((sum, item) => sum + item.quantity, 0);
+  }, [cartItems]);
 
   // Calcola il totale
-  const calculateTotal = () => {
+  const calculateTotal = useMemo(() => {
     return cartItems.reduce((total, item) => {
       return total + item.price * item.quantity;
     }, 0);
-  };
+  }, [cartItems]);
 
   // Svuota il carrello
   const clearCart = () => {
@@ -59,8 +68,11 @@ export default function Cart() {
           <h1 className="wishTitle">Carrello</h1>
           <div className="text-center">
             <p className="text-light fs-2 mb-4">Il tuo carrello è vuoto</p>
-            <button className="buttonCompare" onClick={() => navigate("/")}>
-              Continua lo Shopping
+            <button
+              className="buttonCompare fs-5"
+              onClick={() => navigate("/")}
+            >
+              Cerca destinazioni <FontAwesomeIcon icon={faPlane} />
             </button>
           </div>
         </div>
@@ -80,10 +92,10 @@ export default function Cart() {
                 <thead>
                   <tr>
                     <th scope="col">Destinazione</th>
-                    <th scope="col">Prezzo</th>
-                    <th scope="col">Quantità</th>
+                    <th scope="col">Prezzo per notte</th>
+                    <th scope="col">Viaggiatori</th>
                     <th scope="col">Totale</th>
-                    <th scope="col">Azioni</th>
+                    <th scope="col"></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -98,7 +110,7 @@ export default function Cart() {
                           {item.title}
                         </strong>
                         <br />
-                        <small className="text-muted">{item.country}</small>
+                        <small className="text-light">{item.country}</small>
                       </td>
                       <td className="text-light">€{item.price}</td>
                       <td>
@@ -149,15 +161,13 @@ export default function Cart() {
               <h3 className="text-light mb-3">Riepilogo Ordine</h3>
 
               <div className="d-flex justify-content-between mb-2">
-                <span className="text-light">Articoli:</span>
+                <span className="text-light">Destinazioni:</span>
                 <span className="text-light">{cartItems.length}</span>
               </div>
 
               <div className="d-flex justify-content-between mb-2">
-                <span className="text-light">Quantità totale:</span>
-                <span className="text-light">
-                  {cartItems.reduce((sum, item) => sum + item.quantity, 0)}
-                </span>
+                <span className="text-light">Viaggiatori totali:</span>
+                <span className="text-light">{totalTravellers}</span>
               </div>
 
               <hr className="text-light" />
@@ -165,7 +175,7 @@ export default function Cart() {
               <div className="d-flex justify-content-between mb-3">
                 <strong className="text-light">Totale:</strong>
                 <strong className="text-light">
-                  €{calculateTotal().toFixed(2)}
+                  €{calculateTotal.toFixed(2)}
                 </strong>
               </div>
 

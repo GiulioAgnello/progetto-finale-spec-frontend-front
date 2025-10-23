@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import WishListItems from "../components/WishListItems";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeartCrack } from "@fortawesome/free-solid-svg-icons";
 export default function Wishlist() {
   const [wishlist, setWishlist] = useState([]);
 
@@ -39,7 +40,8 @@ export default function Wishlist() {
                   ))
                 ) : (
                   <p className="text-center text-light fs-2">
-                    Nessuna destinazione in wishlist!
+                    Nessuna destinazione in wishlist{" "}
+                    <FontAwesomeIcon icon={faHeartCrack} />
                   </p>
                 )}
               </ul>

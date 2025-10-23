@@ -12,7 +12,6 @@ export default function Header() {
   };
 
   useEffect(() => {
-    // Carica il conteggio iniziale
     updateCartCount();
 
     // Ascolta i cambiamenti del localStorage

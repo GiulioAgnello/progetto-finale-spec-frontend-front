@@ -2,7 +2,11 @@ import { useTravel } from "../context/destination.context";
 import { useEffect, useRef, useMemo } from "react";
 import CardTravel from "../components/CardTravel";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowDownAZ, faArrowUpZA } from "@fortawesome/free-solid-svg-icons";
+import {
+  faArrowDownAZ,
+  faArrowUpZA,
+  faPlane,
+} from "@fortawesome/free-solid-svg-icons";
 
 export default function AllDestinations() {
   const {
@@ -40,7 +44,7 @@ export default function AllDestinations() {
     <>
       <div className="container">
         <h1 className="text-center m-5 text-white">
-          Tutte le nostre Destinazioni
+          Tutte le nostre Destinazioni <FontAwesomeIcon icon={faPlane} />
         </h1>
         <div className="row d-flex align-items-center mb-4">
           <div className="col-6">
