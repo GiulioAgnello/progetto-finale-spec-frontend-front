@@ -6,7 +6,7 @@ import {
   faArrowDownAZ,
   faArrowUpZA,
   faPlane,
-  faGlobe,
+  faEarthEurope,
 } from "@fortawesome/free-solid-svg-icons";
 
 export default function AllDestinations() {
@@ -132,7 +132,7 @@ export default function AllDestinations() {
           <h3 className="text-center text-light mb-4">
             {" "}
             I nostri Paesi in giro per il mondo{" "}
-            <FontAwesomeIcon icon={faGlobe} />
+            <FontAwesomeIcon icon={faEarthEurope} spin />
           </h3>
           <div className="row">
             <div className="col-12">
