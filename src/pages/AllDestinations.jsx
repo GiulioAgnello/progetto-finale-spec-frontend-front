@@ -164,8 +164,8 @@ export default function AllDestinations() {
 
           {selectedCountry && (
             <div className="text-center mt-3">
-              <span className="badge bg-warning fs-6">
-                {displayCities.length} Destinazioni
+              <span className="badge  fs-6">
+                {displayCities.length} Destinazioni trovate in {selectedCountry}
               </span>
             </div>
           )}
