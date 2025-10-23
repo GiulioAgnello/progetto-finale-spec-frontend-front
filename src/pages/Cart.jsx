@@ -26,6 +26,8 @@ export default function Cart() {
     window.dispatchEvent(new Event("cartUpdated"));
   }, [cartItems]);
 
+  // ** Logiche per il carrello ** //
+
   // Rimuove
   const removeFromCart = (id) => {
     setCartItems((prevItems) => prevItems.filter((item) => item.id !== id));
@@ -92,7 +94,7 @@ export default function Cart() {
                 <thead>
                   <tr>
                     <th scope="col">Destinazione</th>
-                    <th scope="col">Prezzo per notte</th>
+                    <th scope="col">Prezzo a persona</th>
                     <th scope="col">Viaggiatori</th>
                     <th scope="col">Totale</th>
                     <th scope="col"></th>
