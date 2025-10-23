@@ -87,7 +87,7 @@ export default function Homepage() {
       <div className="container">
         <h1 className="text-center m-5 text-white">
           Dove sarà il tuo prossimo viaggio
-          <FontAwesomeIcon icon={faQuestion} bounce />
+          <FontAwesomeIcon icon={faQuestion} />
         </h1>
         <form className="d-flex justify-content-center my-4">
           <input

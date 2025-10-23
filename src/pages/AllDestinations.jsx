@@ -28,7 +28,7 @@ export default function AllDestinations() {
     getDestinations();
   }, []);
 
-  // utilizzo del set mettere i valori in un array unico per i paesi
+  // Utilizzo del Set per creare un array unico dei paesi
   const countries = [
     ...new Set(
       cities
