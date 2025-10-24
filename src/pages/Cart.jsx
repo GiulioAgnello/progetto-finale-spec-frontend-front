@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faTrash,
@@ -34,18 +34,21 @@ export default function Cart() {
   };
 
   // Aggiorna
-  const updateQuantity = (id, newQuantity) => {
-    if (newQuantity <= 0) {
-      removeFromCart(id);
-      return;
-    }
+  const updateQuantity = useCallback(
+    (id, newQuantity) => {
+      if (newQuantity <= 0) {
+        removeFromCart(id);
+        return;
+      }
 
-    setCartItems((prevItems) =>
-      prevItems.map((item) =>
-        item.id === id ? { ...item, quantity: newQuantity } : item
-      )
-    );
-  };
+      setCartItems((prevItems) =>
+        prevItems.map((item) =>
+          item.id === id ? { ...item, quantity: newQuantity } : item
+        )
+      );
+    },
+    [removeFromCart]
+  );
   // calcolo del totale dei viaggiatori
   const totalTravellers = useMemo(() => {
     return cartItems.reduce((sum, item) => sum + item.quantity, 0);

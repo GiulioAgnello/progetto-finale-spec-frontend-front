@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback, useMemo } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { useTravel } from "../context/destination.context";
 import CardTravel from "../components/CardTravel";
 import ListTravelCard from "../components/ListTravelCard";
@@ -32,6 +32,16 @@ export default function Homepage() {
   }, []);
 
   // Filtro locale per performance migliori in base a se c'è title o category
+  const handleSearchChange = (e) => {
+    const value = e.target.value;
+    setInputValue(value);
+    debouncedSetSearch(value);
+  };
+
+  const handleCategoryChange = (e) => {
+    setCategory(e.target.value);
+  };
+
   useEffect(() => {
     let filtered = cities;
 
@@ -48,24 +58,15 @@ export default function Homepage() {
     setFilteredCities(filtered);
   }, [cities, search, category]);
 
+  // toggle se ci sono filtri
+  const displayCities =
+    filteredCities.length > 0 || search || category ? filteredCities : cities;
+
   // funzione per il debounce
   const debouncedSetSearch = useMemo(
     () => debounce((value) => setSearch(value), 500),
     [debounce]
   );
-
-  const handleSearchChange = (e) => {
-    const value = e.target.value;
-    setInputValue(value);
-    debouncedSetSearch(value);
-  };
-
-  const handleCategoryChange = (e) => {
-    setCategory(e.target.value);
-  };
-  // toggle se ci sono filtri
-  const displayCities =
-    filteredCities.length > 0 || search || category ? filteredCities : cities;
 
   // comparatore e wishlist
   const addToCompare = (destination) => {
@@ -77,9 +78,9 @@ export default function Homepage() {
     setShowCompare(true);
     console.log(compareList);
   };
-  const removeFromCompare = useCallback((id) => {
+  const removeFromCompare = (id) => {
     setCompareList((prevList) => prevList.filter((item) => item.id !== id));
-  }, []);
+  };
   // fine comparatore e wishlist
 
   return (
