@@ -31,6 +31,15 @@ export default function Homepage() {
     getDestinations();
   }, []);
 
+  const handleSearchChange = (e) => {
+    const value = e.target.value;
+    setInputValue(value);
+    debouncedSetSearch(value);
+  };
+
+  const handleCategoryChange = (e) => {
+    setCategory(e.target.value);
+  };
   // Filtro locale per performance migliori in base a se c'è title o category
   useEffect(() => {
     let filtered = cities;
@@ -54,15 +63,6 @@ export default function Homepage() {
     [debounce]
   );
 
-  const handleSearchChange = (e) => {
-    const value = e.target.value;
-    setInputValue(value);
-    debouncedSetSearch(value);
-  };
-
-  const handleCategoryChange = (e) => {
-    setCategory(e.target.value);
-  };
   // toggle se ci sono filtri
   const displayCities =
     filteredCities.length > 0 || search || category ? filteredCities : cities;
