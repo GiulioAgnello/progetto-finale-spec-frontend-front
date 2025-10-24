@@ -16,7 +16,6 @@ export default function Cart() {
   useEffect(() => {
     const savedCart = JSON.parse(localStorage.getItem("cart")) || [];
     setCartItems(savedCart);
-    console.log(savedCart);
   }, []);
 
   // Aggiorna localStorage

@@ -27,7 +27,7 @@ export default function CardTravel({ destination, addToCompare }) {
   useEffect(() => {
     const wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
     const exists = wishlist.find((item) => item.id === destination.id);
-    setIsInWishlist(!!exists);
+    setIsInWishlist(exists);
   }, [destination.id]);
 
   const handleWishlistClick = () => {
