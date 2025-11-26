@@ -6,7 +6,7 @@ import Homepage from "./pages/Homepage";
 import DetailTravel from "./pages/DetailTravel";
 import AllDestinations from "./pages/AllDestinations";
 import Wishlist from "./pages/Wishlist";
-import Contact from "./pages/contact";
+import Contact from "./pages/Contact";
 import Cart from "./pages/Cart";
 
 export default function App() {
